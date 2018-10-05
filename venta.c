@@ -174,7 +174,7 @@ static void printFormatVentaByIndex(Venta* list, int index, int table)
         }
         else if(table == BODY)
             printf("|%11s |%11s |%19s |%19s |%19s |\n",
-                ventaIdAux, clienteIdAux, list[index].nombreAfiche, zonaAux);
+                ventaIdAux, clienteIdAux, afichesAux, list[index].nombreAfiche, zonaAux);
         else if(table == FOOTER)
             printf("+------------+------------+--------------------+"
                 "--------------------+--------------------+\n");
