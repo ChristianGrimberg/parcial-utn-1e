@@ -1,0 +1,29 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Exam Compiler",
+            "command": "gcc",
+            "type": "shell",
+            "args": [
+                "-o",
+                "bin/Debug/parcial-utn-1e",              
+                "utn.c",
+                "cliente.c",
+                "venta.c",
+                "menu.c",
+                "test.c",
+                "main.c"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        }
+    ]
+}

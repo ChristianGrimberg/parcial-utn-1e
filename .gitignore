@@ -1,0 +1,6 @@
+# Build Folders and Files
+*/obj
+*.layout
+*.depend
+*/Release
+*.o
