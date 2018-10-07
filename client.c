@@ -143,7 +143,9 @@ int client_getQuantity(Client* list, int len)
             }
         }
         if(clientCounter > 0)
+        {
             returnValue = clientCounter;
+        }
     }
 
     return returnValue;

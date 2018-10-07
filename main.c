@@ -39,10 +39,10 @@ int main()
                     }
                     break;
                 case 2:
-                    if(menu_editClientByUser(clients, CLIENT_MAX,
-                        &indexAux, &optionSubMenu) == 0
-                    && client_edit(clients, CLIENT_MAX,
-                        indexAux, optionSubMenu) == 0)
+                    if(!menu_editClientByUser(clients, CLIENT_MAX,
+                        &indexAux, &optionSubMenu)
+                    && !client_edit(clients, CLIENT_MAX,
+                        indexAux, optionSubMenu))
                     {
                         printf("Modificacion exitosa.\n");
                     }
@@ -53,9 +53,9 @@ int main()
                     break;
                 case 3:
                     if(menu_removeClientByUser(clients, CLIENT_MAX,
-                        &indexAux) == 1
-                    && client_remove(clients, CLIENT_MAX,
-                        indexAux) == 0)
+                        &indexAux)
+                    && !client_remove(clients, CLIENT_MAX,
+                        indexAux))
                     {
                         printf("Se dio de baja el/la Cliente/a.\n");
                     }
@@ -65,9 +65,9 @@ int main()
                     }
                     break;
                 case 4:
-                    if(menu_loadNewVentaByUser(&saleAux, clients, CLIENT_MAX) == 0
-                    && venta_addVenta(sales, SALES_MAX, saleAux.clientId,
-                        saleAux.cantidadAfiches, saleAux.nombreAfiche, saleAux.zona) == 0)
+                    if(!menu_loadNewVentaByUser(&saleAux, clients, CLIENT_MAX)
+                    && !venta_addVenta(sales, SALES_MAX, saleAux.clientId,
+                        saleAux.cantidadAfiches, saleAux.nombreAfiche, saleAux.zona))
                     {
                         printf("Venta ingresada correctamente.\n");
                     }
@@ -77,10 +77,10 @@ int main()
                     }
                     break;
                 case 5:
-                    if(menu_editVentaByUser(sales, SALES_MAX,
-                        &indexAux, &optionSubMenu) == 0
-                    && venta_editVentaByIndex(sales, SALES_MAX,
-                        clients, CLIENT_MAX, indexAux, optionSubMenu) == 0)
+                    if(!menu_editVentaByUser(sales, SALES_MAX,
+                        &indexAux, &optionSubMenu)
+                    && !venta_editVentaByIndex(sales, SALES_MAX,
+                        clients, CLIENT_MAX, indexAux, optionSubMenu))
                     {
                         printf("Modificacion exitosa.\n");
                     }
@@ -98,26 +98,17 @@ int main()
                     runProgram = 'N';
                     break;
             }
-            if((char)(toupper(runProgram)) == 'N')
+            while((char)(toupper(runProgram)) != 'N'
+            && !utn_getChar(&runProgram, RETRY,
+                "Desea Continuar? (S/N): ", ERROR_MESSAGE))
             {
-                menu_clearScreen();
-                break;
-            }
-            else
-            {
-                while(utn_getChar(&runProgram, RETRY,
-                    "Desea Continuar? (S/N): ", "Valor Incorrecto. ") == 0
-                && (char)(toupper(runProgram)) != 'S')
+                if((char)(toupper(runProgram)) == 'N')
                 {
-                    if((char)(toupper(runProgram)) == 'N')
-                    {
-                        menu_clearScreen();
-                        optionMenu = -1;
-                        break;
-                    }
+                    menu_clearScreen();
+                    break;
                 }
             }
-        }while(optionMenu == 0);
+        }while((char)(toupper(runProgram)) != 'N');
     }
     else
     {
