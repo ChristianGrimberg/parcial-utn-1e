@@ -179,11 +179,18 @@ int cliente_removeClientByIndex(Client* list, int len, int index)
 {
     int returnValue = -1;
 
-    if(list != NULL && index >= 0 && index < CLIENT_MAX
-    && len > 0 && len <= CLIENT_MAX)
+    if(list != NULL && index >= 0 && index < len
+    && len >= CLIENT_INIT && len <= CLIENT_MAX)
     {
-        (list+index)->isEmpty = TRUE;
-        returnValue = 0;
+        if(!(list+index)->isEmpty)
+        {
+            (list+index)->isEmpty = TRUE;
+            returnValue = 0;
+        }
+        else
+        {
+            printf(ERROR_EXIST_ELEMENT);
+        }
     }
 
     return returnValue;

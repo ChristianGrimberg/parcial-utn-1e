@@ -45,7 +45,7 @@ int poster_getFirstEmpty(Poster* list, int len);
  *  \return El indice del elemento del array, -1 si no lo encontro.
  * 
  */
-int poster_findById(Poster* list, int len, int id);
+int poster_findId(Poster* list, int len, int id);
 
 /** \brief
  *  Funcion que busca el ID del Afiche del nombre de la imagen.
@@ -67,5 +67,14 @@ int poster_findImage(Poster* list, int len, char* imageName);
  * 
  */
 int poster_add(Poster* list, int len, char* imageName);
+
+/** \brief
+ *  Funcion que cambia el estado a vacio al indice del Afiche ingresado.
+ *  \param list Poster* Direccion de memoria del array de Afiches.
+ *  \param len int Longitud del array de Afiches.
+ *  \return 0 si pudo eliminar el Afiche correctamente, -1 si hubo un error.
+ * 
+ */
+int poster_remove(Poster* list, int len, int index);
 
 #endif //POSTER_H_INCLUDED

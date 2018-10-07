@@ -47,7 +47,7 @@ int poster_getFirstEmpty(Poster* list, int len)
     return returnValue;
 }
 
-int poster_findById(Poster* list, int len, int id)
+int poster_findId(Poster* list, int len, int id)
 {
     int returnValue = -1;
     int i;
@@ -118,6 +118,27 @@ int poster_add(Poster* list, int len, char* imageName)
         else
         {
             printf("El sistema no soporta la carga del id: %d,\n", idAux);
+        }
+    }
+
+    return returnValue;
+}
+
+int poster_remove(Poster* list, int len, int index)
+{
+    int returnValue = -1;
+
+    if(list != NULL && len >= POSTER_INIT && len <= POSTER_MAX
+        && index >= 0 && index < len)
+    {
+        if(!(list+index)->isEmpty)
+        {
+            (list+index)->isEmpty = TRUE;
+            returnValue = 0;
+        }
+        else
+        {
+            printf(ERROR_EXIST_ELEMENT);
         }
     }
 
