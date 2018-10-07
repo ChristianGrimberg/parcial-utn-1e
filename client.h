@@ -33,7 +33,7 @@ typedef struct
  *  \return 0 si se inicializo correctamente, -1 si hubo un error.
  *
  */
-int cliente_init(Client* list, int len);
+int client_init(Client* list, int len);
 
 /** \brief
  *  Funcion que busca el primer Cliente libre a cargar en el array.
@@ -42,7 +42,7 @@ int cliente_init(Client* list, int len);
  *  \return El indice del elemento libre, -1 si no encontro elemento libre.
  *
  */
-int cliente_getFirstEmptyClient(Client* list, int len);
+int client_getFirstEmptyClient(Client* list, int len);
 
 /** \brief
  *  La funcion busca un Cliente en un array por el campo Id.
@@ -52,7 +52,7 @@ int cliente_getFirstEmptyClient(Client* list, int len);
  *  \return El indice del elemento en el array, de lo contrario devuelve -1.
  *
  */
-int cliente_findClientById(Client* list, int len, int id);
+int client_findClientById(Client* list, int len, int id);
 
 /** \brief
  *  La funcion agrega un nuevo Cliente de acuerdo a los parametros ingresados
@@ -65,7 +65,7 @@ int cliente_findClientById(Client* list, int len, int id);
  *  \return 0 si se pudo agregar el Cliente, -1 si hubo un error.
  *
  */
-int cliente_addClient(Client* list, int len, char* name, char* lastName,
+int client_addClient(Client* list, int len, char* name, char* lastName,
     char* cuit);
 
 /** \brief
@@ -75,7 +75,7 @@ int cliente_addClient(Client* list, int len, char* name, char* lastName,
  *  \return La cantidad de Cliente Activos, si no hay ninguno devuelve -1.
  *
  */
-int cliente_getNumberOfClients(Client* list, int len);
+int client_getNumberOfClients(Client* list, int len);
 
 /** \brief
  *  La funcion edita un Cliente del array mediante el ingreso del indice del Array.
@@ -86,7 +86,7 @@ int cliente_getNumberOfClients(Client* list, int len);
  *  \return 0 si la edicion fue correcta, -1 si hubo un error.
  *
  */
-int cliente_editClientByIndex(Client* list, int len, int index, int field);
+int client_editClientByIndex(Client* list, int len, int index, int field);
 
 /** \brief
  *  La funcion da de baja un Cliente del array indicando si estado en FALSE
@@ -97,25 +97,25 @@ int cliente_editClientByIndex(Client* list, int len, int index, int field);
  *  \return 0 si la baja fue correcta, -1 si hubo un error.
  *
  */
-int cliente_removeClientByIndex(Client* list, int len, int index);
+int client_removeClientByIndex(Client* list, int len, int index);
 
 /** \brief
  *  Imprime un elemento de un array de Clientes.
  *  \param list Employee* Direccion de memoria del array de Clientes.
- *  \param len int Longitud del array de Clientes.
+ *  \param index int Indice del array de Clientes.
+ *  \param table int Indicador de seccion de impresion de lista en una tabla.
+ *  \return No retorna valores.
+ *
+ */
+void client_printFormatedClient(Client* list, int index, int table);
+
+/** \brief
+ *  Imprime un elemento de un array de Clientes.
+ *  \param list Employee* Direccion de memoria del array de Clientes.
  *  \param index int Indice del Array del Cliente.
  *  \return La funcion no retorna valores.
  *
  */
-void cliente_printClientByIndex(Client* list, int len, int index);
-
-/** \brief
- *  Imprime la lista ingresada de Clientes en una tabla.
- *  \param list Employee* Direccion de memoria del array de Clientes.
- *  \param len int Longitud del array de Clientes.
- *  \return La funcion no retorna valores.
- *
- */
-void cliente_printClientList(Client* list, int len);
+void client_print(Client* list, int index);
 
 #endif // CLIENT_H_INCLUDED

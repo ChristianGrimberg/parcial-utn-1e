@@ -7,17 +7,7 @@
  */
 static int getNewClientId(void);
 
-/** \brief
- *  Imprime un elemento de un array de Clientes.
- *  \param list Employee* Direccion de memoria del array de Clientes.
- *  \param index int Indice del array de Clientes.
- *  \param table int Indicador de seccion de impresion de lista en una tabla.
- *  \return No retorna valores.
- *
- */
-static void printFormatClientByIndex(Client* list, int index, int table);
-
-int cliente_init(Client* list, int len)
+int client_init(Client* list, int len)
 {
     int returnValue = -1;
     int i;
@@ -37,7 +27,7 @@ int cliente_init(Client* list, int len)
     return returnValue;
 }
 
-int cliente_getFirstEmptyClient(Client* list, int len)
+int client_getFirstEmptyClient(Client* list, int len)
 {
     int returnValue = -1;
     int i;
@@ -57,7 +47,7 @@ int cliente_getFirstEmptyClient(Client* list, int len)
     return returnValue;
 }
 
-int cliente_findClientById(Client* list, int len, int id)
+int client_findClientById(Client* list, int len, int id)
 {
     int returnValue = -1;
     int i;
@@ -78,7 +68,7 @@ int cliente_findClientById(Client* list, int len, int id)
     return returnValue;
 }
 
-int cliente_addClient(Client* list, int len, char* name, char* lastName,
+int client_addClient(Client* list, int len, char* name, char* lastName,
     char* cuit)
 {
     int returnValue = -1;
@@ -91,7 +81,7 @@ int cliente_addClient(Client* list, int len, char* name, char* lastName,
         idAux = getNewClientId();
         if(idAux >= CLIENT_INIT && idAux <= CLIENT_MAX)
         {
-            indexAux = cliente_getFirstEmptyClient(list, len);
+            indexAux = client_getFirstEmptyClient(list, len);
             if(indexAux != -1)
             {
                 (list+indexAux)->clientId = idAux;
@@ -115,7 +105,7 @@ int cliente_addClient(Client* list, int len, char* name, char* lastName,
     return returnValue;
 }
 
-int cliente_getNumberOfClients(Client* list, int len)
+int client_getNumberOfClients(Client* list, int len)
 {
     int returnValue = -1;
     int clientCounter = 0;
@@ -135,7 +125,7 @@ int cliente_getNumberOfClients(Client* list, int len)
     return returnValue;
 }
 
-int cliente_editClientByIndex(Client* list, int len, int index, int field)
+int client_editClientByIndex(Client* list, int len, int index, int field)
 {
     int returnValue = -1;
     Client clientAux;
@@ -175,7 +165,7 @@ int cliente_editClientByIndex(Client* list, int len, int index, int field)
     return returnValue;
 }
 
-int cliente_removeClientByIndex(Client* list, int len, int index)
+int client_removeClientByIndex(Client* list, int len, int index)
 {
     int returnValue = -1;
 
@@ -196,43 +186,7 @@ int cliente_removeClientByIndex(Client* list, int len, int index)
     return returnValue;
 }
 
-void cliente_printClientByIndex(Client* list, int len, int index)
-{
-    if(list[index].isEmpty == FALSE)
-    {
-        printFormatClientByIndex(list, 0, HEADER);
-        printFormatClientByIndex(list, index, BODY);
-        printFormatClientByIndex(list, 0, FOOTER);
-    }
-}
-
-void cliente_printClientList(Client* list, int len)
-{
-    int i;
-
-    printFormatClientByIndex(list, 0, HEADER);
-    for(i = 0; i < len; i++)
-    {
-        if(list[i].isEmpty == TRUE)
-        {
-            continue;
-        }
-        else
-        {
-            printFormatClientByIndex(list, i, BODY);
-        }
-    }
-    printFormatClientByIndex(list, 0, FOOTER);
-}
-
-static int getNewClientId(void)
-{
-    static int clientIdCounter = CLIENT_INIT - 1;
-    clientIdCounter++;
-    return clientIdCounter;
-}
-
-static void printFormatClientByIndex(Client* list, int index, int table)
+void client_printFormatedClient(Client* list, int index, int table)
 {
     char idAux[FORMAT_LEN_ID];
 
@@ -257,4 +211,21 @@ static void printFormatClientByIndex(Client* list, int index, int table)
     }
     else
         printf("El Cliente/a no existe.\n");
+}
+
+void client_print(Client* list, int index)
+{
+    if(list != NULL && !(list+index)->isEmpty)
+    {
+        client_printFormatedClient(list, 0, HEADER);
+        client_printFormatedClient(list, index, BODY);
+        client_printFormatedClient(list, 0, FOOTER);
+    }
+}
+
+static int getNewClientId(void)
+{
+    static int clientIdCounter = CLIENT_INIT - 1;
+    clientIdCounter++;
+    return clientIdCounter;
 }

@@ -14,7 +14,7 @@ int main()
     char runProgram = 'S';
     int indexAux;
 
-    if(!cliente_init(clients, CLIENT_MAX) && !sale_init(sales, SALES_MAX))
+    if(!client_init(clients, CLIENT_MAX) && !sale_init(sales, SALES_MAX))
     {
         if(test_clientHardCode(clients, CLIENT_MAX) == -1)
         {
@@ -28,7 +28,7 @@ int main()
             {
                 case 1:
                     if(!menu_loadNewClientByUser(&clientAux)
-                    && !cliente_addClient(clients, CLIENT_MAX, clientAux.name,
+                    && !client_addClient(clients, CLIENT_MAX, clientAux.name,
                         clientAux.lastName, clientAux.cuit))
                     {
                         printf("Cliente/a ingresado/a correctamente.\n");
@@ -41,7 +41,7 @@ int main()
                 case 2:
                     if(menu_editClientByUser(clients, CLIENT_MAX,
                         &indexAux, &optionSubMenu) == 0
-                    && cliente_editClientByIndex(clients, CLIENT_MAX,
+                    && client_editClientByIndex(clients, CLIENT_MAX,
                         indexAux, optionSubMenu) == 0)
                     {
                         printf("Modificacion exitosa.\n");
@@ -54,7 +54,7 @@ int main()
                 case 3:
                     if(menu_removeClientByUser(clients, CLIENT_MAX,
                         &indexAux) == 1
-                    && cliente_removeClientByIndex(clients, CLIENT_MAX,
+                    && client_removeClientByIndex(clients, CLIENT_MAX,
                         indexAux) == 0)
                     {
                         printf("Se dio de baja el/la Cliente/a.\n");
@@ -90,7 +90,7 @@ int main()
                     }
                     break;
                 case 7:
-                    cliente_printClientList(clients, CLIENT_MAX);
+                    inform_printClientList(clients, CLIENT_MAX);
                     break;
                 case 8:
                     menu_clearScreen();

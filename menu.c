@@ -69,17 +69,17 @@ int menu_editClientByUser(Client* list, int len, int* index, int* selectionMenu)
     int indexAux;
     int clientQty;
 
-    clientQty = cliente_getNumberOfClients(list, len);
+    clientQty = client_getNumberOfClients(list, len);
     if(clientQty != -1)
     {
         if(utn_getInt(&idAux, RETRY, CLIENT_INIT, CLIENT_MAX,
             "Ingrese el numero ID a modificar: ", ERROR_MESSAGE) == 0)
         {
-            indexAux = cliente_findClientById(list, len, idAux);
+            indexAux = client_findClientById(list, len, idAux);
             if(indexAux != -1)
             {
                 menu_clearScreen();
-                cliente_printClientByIndex(list, len, indexAux);
+                client_print(list, indexAux);
                 printf("=========MODIFICAR EMPLEADO/A==========\n");
                 printf("1. Modificar el Nombre.\n");
                 printf("2. Modificar el Apellido.\n");
@@ -116,17 +116,17 @@ int menu_removeClientByUser(Client* list, int len, int* index)
     char deleteClient;
     int clientQty;
 
-    clientQty = cliente_getNumberOfClients(list, len);
+    clientQty = client_getNumberOfClients(list, len);
     if(clientQty != -1)
     {
         if(utn_getInt(&idAux, RETRY, CLIENT_INIT, CLIENT_MAX,
             "Ingrese el ID del/la Cliente/a a eliminar: ", ERROR_MESSAGE) == 0)
         {
-            indexAux = cliente_findClientById(list, len, idAux);
+            indexAux = client_findClientById(list, len, idAux);
             if(indexAux != -1)
             {
                 menu_clearScreen();
-                cliente_printClientByIndex(list, len, indexAux);
+                client_print(list, indexAux);
                 do
                 {
                     if(utn_getChar(&deleteClient, RETRY,
@@ -168,11 +168,11 @@ int menu_loadNewVentaByUser(Sale* sale, Client* list, int len)
     if(utn_getInt(&clientId, RETRY, CLIENT_INIT, CLIENT_MAX,
         "Ingrese el ID del/la Cliente/a a vender: ", ERROR_MESSAGE) == 0)
     {
-        clientIndex = cliente_findClientById(list, len, clientId);
+        clientIndex = client_findClientById(list, len, clientId);
         if(clientIndex != -1)
         {
             menu_clearScreen();
-            cliente_printClientByIndex(list, len, clientIndex);
+            client_print(list, clientIndex);
             if(utn_getChar(&acceptClient, 0,
                 "Esta de acuerdo con el/la Cliente/a? (S/N): ", ERROR_MESSAGE) == 0
             && (char)(toupper(acceptClient)) == 'S')
@@ -254,10 +254,10 @@ int venta_editVentaByIndex(Sale* saleList, int lenVenta, Client* clientList, int
                 if(utn_getInt(&clientId, RETRY, CLIENT_INIT, CLIENT_MAX,
                     "Ingrese el ID del/la Cliente/a: ", ERROR_MESSAGE) == 0)
                 {
-                    clientIndex = cliente_findClientById(clientList, lenClient, clientId);
+                    clientIndex = client_findClientById(clientList, lenClient, clientId);
                     if(clientIndex != -1)
                     {
-                        cliente_printClientByIndex(clientList, lenClient, clientIndex);
+                        client_print(clientList, clientIndex);
                         if(utn_getChar(&acceptClient, 0,
                             "Esta de acuerdo con el/la Cliente/a? (S/N): ", ERROR_MESSAGE) == 0
                         && (char)(toupper(acceptClient)) == 'S')
