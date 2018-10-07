@@ -1,5 +1,6 @@
 #include "menu.h"
 #include "test.h"
+#include "inform.h"
 
 int main()
 {
