@@ -1,7 +1,6 @@
 #ifndef MENU_H_INCLUDED
 #define MENU_H_INCLUDED
 
-#include "cliente.h"
 #include "venta.h"
 #define PURGE_LEN 2 /**< Longitud del buffer de entrada para pausar la pantalla. */
 #define MENU_PRINCIPAL_MIN 1 /**< Minima opcion del menu principal. */
