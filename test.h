@@ -1,7 +1,7 @@
 #ifndef TEST_H_INCLUDED
 #define TEST_H_INCLUDED
 
-#include "cliente.h"
+#include "sale.h"
 #define WITH_HARDCODE 1 /**< Carga HardCode de Clientes, 1 (SI) 0 (NO). */
 #define ERROR_HARDCODE "Error en HardCode.\n" /**< Mensaje de falla de alta HardCode. */
 

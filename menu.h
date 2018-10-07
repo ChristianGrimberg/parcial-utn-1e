@@ -1,7 +1,7 @@
 #ifndef MENU_H_INCLUDED
 #define MENU_H_INCLUDED
 
-#include "venta.h"
+#include "sale.h"
 #define PURGE_LEN 2 /**< Longitud del buffer de entrada para pausar la pantalla. */
 #define MENU_PRINCIPAL_MIN 1 /**< Minima opcion del menu principal. */
 #define MENU_PRINCIPAL_MAX 8 /**< Maxima opcion del menu principal. */
@@ -66,10 +66,10 @@ int menu_editClientByUser(Client* list, int len, int* index, int* selectionMenu)
  */
 int menu_removeClientByUser(Client* list, int len, int* index);
 
-int menu_loadNewVentaByUser(Venta* venta, Client* list, int len);
+int menu_loadNewVentaByUser(Sale* sale, Client* list, int len);
 
-int menu_editVentaByUser(Venta* list, int len, int* index, int* selectionMenu);
+int menu_editVentaByUser(Sale*, int len, int* index, int* selectionMenu);
 
-int venta_editVentaByIndex(Venta* ventaList, int lenVenta, Client* clientList, int lenClient, int index, int field);
+int venta_editVentaByIndex(Sale* saleList, int lenVenta, Client* clientList, int lenClient, int index, int field);
 
 #endif //MENU_H_INCLUDED

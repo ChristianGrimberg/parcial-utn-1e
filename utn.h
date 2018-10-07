@@ -22,6 +22,10 @@
 #define ALL_CHARACTERES 0 /**< Indicador de cadena que tiene caracteres de todo tipo. */
 #define TRUE 1 /**< Estado lleno del elemento del array. */
 #define FALSE 0 /**< Estado vacio del elemento del array. */
+#define FORMAT_LEN_ID 5 /**< Longitud de formato a cadena del campo id. */
+#define ERROR_MESSAGE "Valor incorrecto. " /**< Mensaje de falla ante reintentos. */
+#define ERROR_EMPTY_LIST "No hay elementos en la lista.\n" /**< Mensaje de lista vacia. */
+#define ERROR_FULL_LIST "No hay elementos libres a cargar.\n" /**< Mensaje de lista llena. */
 
 /** \brief
  *  Funcion para obtener un entero por teclado en un rango, con mensajes

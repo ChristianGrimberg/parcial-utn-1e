@@ -19,10 +19,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="cliente.c">
+		<Unit filename="poster.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="cliente.h" />
+		<Unit filename="poster.h" />
+		<Unit filename="client.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="client.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -38,10 +42,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="utn.h" />
-		<Unit filename="venta.c">
+		<Unit filename="sale.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="venta.h" />
+		<Unit filename="sale.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

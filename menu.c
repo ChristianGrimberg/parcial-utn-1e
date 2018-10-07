@@ -1,5 +1,4 @@
 #include "menu.h"
-#include "venta.h"
 
 void menu_pauseScreen(char* mensaje)
 {
@@ -48,9 +47,9 @@ int menu_loadNewClientByUser(Client* client)
     int returnValue = -1;
     Client clientAux;
 
-    if(!utn_getString(clientAux.name, CLIENT_NAME_MAX, RETRY,
+    if(!utn_getString(clientAux.name, CLIENT_NAMES_MAX, RETRY,
         "Ingrese el Nombre: ", ERROR_MESSAGE, ONLY_LETTERS)
-    && !utn_getString(clientAux.lastName, CLIENT_NAME_MAX, RETRY,
+    && !utn_getString(clientAux.lastName, CLIENT_NAMES_MAX, RETRY,
         "Ingrese el Apellido: ", ERROR_MESSAGE, ONLY_LETTERS)
     && !utn_getCUIT(clientAux.cuit, CUIT_MAX, RETRY,
         "Ingrese el CUIT: ", ERROR_MESSAGE))
@@ -158,10 +157,10 @@ int menu_removeClientByUser(Client* list, int len, int* index)
     return returnValue;
 }
 
-int menu_loadNewVentaByUser(Venta* venta, Client* list, int len)
+int menu_loadNewVentaByUser(Sale* sale, Client* list, int len)
 {
     int returnValue = -1;
-    Venta ventaAux;
+    Sale saleAux;
     int clientId;
     int clientIndex;
     char acceptClient;
@@ -178,17 +177,17 @@ int menu_loadNewVentaByUser(Venta* venta, Client* list, int len)
                 "Esta de acuerdo con el/la Cliente/a? (S/N): ", ERROR_MESSAGE) == 0
             && (char)(toupper(acceptClient)) == 'S')
             {
-                ventaAux.clientId = clientId;
-                if(utn_getInt(&ventaAux.cantidadAfiches, RETRY, 0, INT_MAX,
+                saleAux.clientId = clientId;
+                if(utn_getInt(&saleAux.cantidadAfiches, RETRY, 0, INT_MAX,
                     "Ingrese la cantidad de afiches: ", ERROR_MESSAGE) == 0
-                && utn_getString(ventaAux.nombreAfiche, AFICHE_NOMBRE_MAX, RETRY,
+                && utn_getString(saleAux.nombreAfiche, POSTER_NAME_MAX, RETRY,
                     "Ingrese el archivo del afiche: ", ERROR_MESSAGE, ALL_CHARACTERES) == 0)
                 {
                     menu_clearScreen();
                     printf("Elija la zona:\n");
-                    if(venta_zonaSelection(&ventaAux.zona) == 0)
+                    if(sale_selectionZone(&saleAux.zona) == 0)
                     {
-                        *venta = ventaAux;
+                        *sale = saleAux;
                         returnValue = 0;
                     }
                 }
@@ -199,7 +198,7 @@ int menu_loadNewVentaByUser(Venta* venta, Client* list, int len)
     return returnValue;
 }
 
-int menu_editVentaByUser(Venta* list, int len, int* index, int* selectionMenu)
+int menu_editVentaByUser(Sale* list, int len, int* index, int* selectionMenu)
 {
     int returnValue = -1;
     int optionAux;
@@ -237,18 +236,18 @@ int menu_editVentaByUser(Venta* list, int len, int* index, int* selectionMenu)
     return returnValue;
 }
 
-int venta_editVentaByIndex(Venta* ventaList, int lenVenta, Client* clientList, int lenClient, int index, int field)
+int venta_editVentaByIndex(Sale* saleList, int lenVenta, Client* clientList, int lenClient, int index, int field)
 {
     int returnValue = -1;
-    Venta ventaAux;
+    Sale saleAux;
     int clientId;
     int clientIndex;
     char acceptClient;
 
-    if(index >= 0 && index < VENTAS_MAX
+    if(index >= 0 && index < SALES_MAX
     && field >= FIELD_CLIENT_ID && field <= FIELD_ZONA)
     {
-        ventaAux = ventaList[index];
+        saleAux = saleList[index];
         switch(field)
         {
             case 1:
@@ -263,7 +262,7 @@ int venta_editVentaByIndex(Venta* ventaList, int lenVenta, Client* clientList, i
                             "Esta de acuerdo con el/la Cliente/a? (S/N): ", ERROR_MESSAGE) == 0
                         && (char)(toupper(acceptClient)) == 'S')
                         {
-                            ventaAux.clientId = clientId;
+                            saleAux.clientId = clientId;
                         }
                         else
                         {
@@ -273,14 +272,14 @@ int venta_editVentaByIndex(Venta* ventaList, int lenVenta, Client* clientList, i
                 }
                 break;
             case 2:
-                if(utn_getInt(&ventaAux.cantidadAfiches, RETRY, 0, INT_MAX,
+                if(utn_getInt(&saleAux.cantidadAfiches, RETRY, 0, INT_MAX,
                     "Ingrese la nueva cantidad de Afiches: ", ERROR_MESSAGE) == -1)
                 {
                     printf("Error de edicion de cantidad de Afiches.\n");
                 }
                 break;
             case 3:
-                if(utn_getString(ventaAux.nombreAfiche, AFICHE_NOMBRE_MAX, RETRY,
+                if(utn_getString(saleAux.nombreAfiche, POSTER_NAME_MAX, RETRY,
                     "Ingrese el nuevo Archivo: ", ERROR_MESSAGE, ONLY_LETTERS) == -1)
                 {
                     printf("Error de edicion del Archivo.\n");
@@ -288,13 +287,13 @@ int venta_editVentaByIndex(Venta* ventaList, int lenVenta, Client* clientList, i
                 break;
             case 4:
                 printf("Elija la zona:\n");
-                if(venta_zonaSelection(&ventaAux.zona) == -1)
+                if(sale_selectionZone(&saleAux.zona) == -1)
                 {
                     printf("Error de edicion de la zona.\n");
                 }
                 break;
         }
-        ventaList[index] = ventaAux;
+        saleList[index] = saleAux;
         returnValue = 0;
     }
 

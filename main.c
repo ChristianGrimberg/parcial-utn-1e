@@ -5,17 +5,17 @@ int main()
 {
     Client clients[CLIENT_MAX];
     Client clientAux;
-    Venta ventas[VENTAS_MAX];
-    Venta ventaAux;
+    Sale sales[SALES_MAX];
+    Sale saleAux;
     int optionMenu;
     int selectionMenu = -1;
     int optionSubMenu;
     char runProgram = 'S';
     int indexAux;
 
-    if(cliente_init(clients, CLIENT_MAX) == 0 && venta_init(ventas, VENTAS_MAX) == 0)
+    if(!cliente_init(clients, CLIENT_MAX) && !sale_init(sales, SALES_MAX))
     {
-        if(WITH_HARDCODE && test_clientHardCode(clients, CLIENT_MAX) == -1)
+        if(test_clientHardCode(clients, CLIENT_MAX) == -1)
         {
             menu_pauseScreen(ERROR_HARDCODE);
         }
@@ -27,7 +27,7 @@ int main()
             {
                 case 1:
                     if(!menu_loadNewClientByUser(&clientAux)
-                    && cliente_addClient(clients, CLIENT_MAX, clientAux.name,
+                    && !cliente_addClient(clients, CLIENT_MAX, clientAux.name,
                         clientAux.lastName, clientAux.cuit))
                     {
                         printf("Cliente/a ingresado/a correctamente.\n");
@@ -64,9 +64,9 @@ int main()
                     }
                     break;
                 case 4:
-                    if(menu_loadNewVentaByUser(&ventaAux, clients, CLIENT_MAX) == 0
-                    && venta_addVenta(ventas, VENTAS_MAX, ventaAux.clientId,
-                        ventaAux.cantidadAfiches, ventaAux.nombreAfiche, ventaAux.zona) == 0)
+                    if(menu_loadNewVentaByUser(&saleAux, clients, CLIENT_MAX) == 0
+                    && venta_addVenta(sales, SALES_MAX, saleAux.clientId,
+                        saleAux.cantidadAfiches, saleAux.nombreAfiche, saleAux.zona) == 0)
                     {
                         printf("Venta ingresada correctamente.\n");
                     }
@@ -76,9 +76,9 @@ int main()
                     }
                     break;
                 case 5:
-                    if(menu_editVentaByUser(ventas, VENTAS_MAX,
+                    if(menu_editVentaByUser(sales, SALES_MAX,
                         &indexAux, &optionSubMenu) == 0
-                    && venta_editVentaByIndex(ventas, VENTAS_MAX,
+                    && venta_editVentaByIndex(sales, SALES_MAX,
                         clients, CLIENT_MAX, indexAux, optionSubMenu) == 0)
                     {
                         printf("Modificacion exitosa.\n");
@@ -92,11 +92,13 @@ int main()
                     cliente_printClientList(clients, CLIENT_MAX);
                     break;
                 case 8:
+                    menu_clearScreen();
                     runProgram = 'N';
                     break;
             }
             if((char)(toupper(runProgram)) == 'N')
             {
+                menu_clearScreen();
                 break;
             }
             else
@@ -107,6 +109,7 @@ int main()
                 {
                     if((char)(toupper(runProgram)) == 'N')
                     {
+                        menu_clearScreen();
                         optionMenu = -1;
                         break;
                     }
@@ -116,7 +119,7 @@ int main()
     }
     else
     {
-        printf("Error de inicializacion de nomina de Empleados.\n");
+        printf("Error de inicializacion de listados.\n");
     }
 
     return 0;

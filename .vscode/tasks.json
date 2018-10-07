@@ -11,8 +11,9 @@
                 "-o",
                 "bin/Debug/parcial-utn-1e",              
                 "utn.c",
-                "cliente.c",
-                "venta.c",
+                "client.c",
+                "poster.c",
+                "sale.c",
                 "menu.c",
                 "test.c",
                 "main.c"

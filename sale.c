@@ -1,18 +1,18 @@
-#include "venta.h"
+#include "sale.h"
 
 /** \brief
  *  Funcion que obtiene un Id de Venta autonumerico incremental en 1.
  *  \return Numero entero incremental en 1 irrepetible.
  *
  */
-static int getNewVentaId(void);
+static int getNewSaleId(void);
 
-int venta_init(Venta* list, int len)
+int sale_init(Sale* list, int len)
 {
     int returnValue = -1;
     int i;
 
-    if(list != NULL && len > 0 && len <= VENTAS_MAX)
+    if(list != NULL && len > 0 && len <= SALES_MAX)
     {
         for(i = 0; i < len; i++)
         {
@@ -27,12 +27,12 @@ int venta_init(Venta* list, int len)
     return returnValue;
 }
 
-int venta_getFirstEmptyVenta(Venta* list, int len)
+int sale_getFirstEmptySale(Sale* list, int len)
 {
     int returnValue = -1;
     int i;
 
-    if(list != NULL && len > 0 && len <= VENTAS_MAX)
+    if(list != NULL && len > 0 && len <= SALES_MAX)
     {
         for(i = 0; i < len; i++)
         {
@@ -47,7 +47,7 @@ int venta_getFirstEmptyVenta(Venta* list, int len)
     return returnValue;
 }
 
-int venta_zonaSelection(int* zona)
+int sale_selectionZone(int* zona)
 {
     int returnValue = -1;
     int optionAux;
@@ -72,13 +72,13 @@ int venta_zonaSelection(int* zona)
     return returnValue;
 }
 
-int venta_findVentaById(Venta* list, int len, int id)
+int venta_findVentaById(Sale* list, int len, int id)
 {
     int returnValue = -1;
     int i;
 
     if(list != NULL && len > 0
-    && len <= VENTAS_MAX && id >= VENTA_INIT && id < VENTAS_MAX)
+    && len <= SALES_MAX && id >= VENTA_INIT && id < SALES_MAX)
     {
         for(i = 0; i < len; i++)
         {
@@ -93,34 +93,34 @@ int venta_findVentaById(Venta* list, int len, int id)
     return returnValue;
 }
 
-int venta_addVenta(Venta* list, int len, int clientId,
+int venta_addVenta(Sale* list, int len, int clientId,
     int cantidadAfiches, char* nombreAfiche, int zona)
 {
     int returnValue = -1;
     int idAux;
     int indexAux;
 
-    if(list != NULL && len > 0 && len <= VENTAS_MAX
+    if(list != NULL && len > 0 && len <= SALES_MAX
         && clientId > 0 && cantidadAfiches >= 0 && nombreAfiche != NULL)
     {
-        idAux = getNewVentaId();
-        if(idAux >= VENTA_INIT && idAux <= VENTAS_MAX)
+        idAux = getNewSaleId();
+        if(idAux >= VENTA_INIT && idAux <= SALES_MAX)
         {
-            indexAux = venta_getFirstEmptyVenta(list, len);
+            indexAux = sale_getFirstEmptySale(list, len);
             if(indexAux != -1)
             {
                 (list+indexAux)->ventaId = idAux;
                 (list+indexAux)->clientId = clientId;
                 (list+indexAux)->cantidadAfiches = cantidadAfiches;
                 (list+indexAux)->zona = zona;
-                strncpy((list+indexAux)->nombreAfiche, nombreAfiche, AFICHE_NOMBRE_MAX);
+                strncpy((list+indexAux)->nombreAfiche, nombreAfiche, POSTER_NAME_MAX);
                 (list+indexAux)->estado = A_COBRAR;
                 (list+indexAux)->isEmpty = FALSE;
                 returnValue = 0;
             }
             else
             {
-                printf("No hay elementos libres a cargar.\n");
+                printf(ERROR_FULL_LIST);
             }
         }
         else
@@ -132,21 +132,21 @@ int venta_addVenta(Venta* list, int len, int clientId,
     return returnValue;
 }
 
-static int getNewVentaId(void)
+static int getNewSaleId(void)
 {
     static int ventaIdCounter = VENTA_INIT - 1;
     ventaIdCounter++;
     return ventaIdCounter;
 }
 
-static void printFormatVentaByIndex(Venta* list, int index, int table)
+static void printFormatVentaByIndex(Sale* list, int index, int table)
 {
-    char ventaIdAux[FORMAT_ID_LEN];
-    char clienteIdAux[FORMAT_ID_LEN];
-    char afichesAux[FORMAT_ID_LEN];
+    char ventaIdAux[FORMAT_LEN_ID];
+    char clienteIdAux[FORMAT_LEN_ID];
+    char afichesAux[FORMAT_LEN_ID];
     char zonaAux[ZONA_MAX];
 
-    if(list != NULL && index >= 0 && index < VENTAS_MAX)
+    if(list != NULL && index >= 0 && index < SALES_MAX)
     {
         sprintf(ventaIdAux, "%d", list[index].ventaId);
         sprintf(clienteIdAux, "%d", list[index].clientId);

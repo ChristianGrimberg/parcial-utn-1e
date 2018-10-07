@@ -1,20 +1,18 @@
-#ifndef CLIENTE_H_INCLUDED
-#define CLIENTE_H_INCLUDED
+#ifndef CLIENT_H_INCLUDED
+#define CLIENT_H_INCLUDED
 
 #include "utn.h"
-#define CLIENT_NAME_MAX 32
+#define CLIENT_NAMES_MAX 32
 #define CUIT_MAX 32
 #define CLIENT_INIT 1
 #define CLIENT_MAX 100
-#define ERROR_MESSAGE "Valor incorrecto. " /**< Mensaje de falla de reintento. */
-#define ERROR_EMPTY_LIST "No hay Cliente/as en el listado.\n" /**< Mensaje lista vacia. */
 #define HEADER 1 /**< Encabezado de tabla de una lista de Clientes. */
 #define BODY 2 /**< Cuerpo de tabla de una lista de Clientes. */
 #define FOOTER 3 /**< Pie de tabla de una lista de Clientes. */
 #define FIELD_NAME 1 /**< Campo Nombre del Cliente. */
 #define FIELD_LASTNAME 2 /**< Campo Apellido del Cliente. */
 #define FIELD_CUIT 3 /**< Campo CUIT del Cliente. */
-#define FORMAT_ID_LEN 5
+#define FORMAT_LEN_ID 5
 
 
 /*! \struct Client
@@ -25,8 +23,8 @@
 typedef struct
 {
     int clientId;
-    char name[NAME_MAX];
-    char lastName[NAME_MAX];
+    char name[CLIENT_NAMES_MAX];
+    char lastName[CLIENT_NAMES_MAX];
     char cuit[CUIT_MAX];
     int isEmpty;
 }Client;
@@ -47,7 +45,7 @@ int cliente_init(Client* list, int len);
  *  \return El indice del elemento libre, -1 si no encontro elemento libre.
  *
  */
-int cliente_getFirstEmptyClient(Client* clientes, int len);
+int cliente_getFirstEmptyClient(Client* list, int len);
 
 /** \brief
  *  La funcion busca un Cliente en un array por el campo Id.
@@ -123,4 +121,4 @@ void cliente_printClientByIndex(Client* list, int len, int index);
  */
 void cliente_printClientList(Client* list, int len);
 
-#endif // CLIENTE_H_INCLUDED
+#endif // CLIENT_H_INCLUDED

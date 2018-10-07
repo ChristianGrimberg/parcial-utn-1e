@@ -1,5 +1,4 @@
-#include "cliente.h"
-#define FORMAT_ID_LEN 5 /**< Longitud de formato a cadena del campo id. */
+#include "client.h"
 
 /** \brief
  *  Funcion que obtiene un Id de Cliente autonumerico incremental en 1.
@@ -38,16 +37,16 @@ int cliente_init(Client* list, int len)
     return returnValue;
 }
 
-int cliente_getFirstEmptyClient(Client* clientes, int len)
+int cliente_getFirstEmptyClient(Client* list, int len)
 {
     int returnValue = -1;
     int i;
 
-    if(clientes != NULL && len > 0 && len <= CLIENT_MAX)
+    if(list != NULL && len > 0 && len <= CLIENT_MAX)
     {
         for(i = 0; i < len; i++)
         {
-            if(clientes[i].isEmpty == TRUE)
+            if((list+i)->isEmpty)
             {
                 returnValue = i;
                 break;
@@ -96,15 +95,15 @@ int cliente_addClient(Client* list, int len, char* name, char* lastName,
             if(indexAux != -1)
             {
                 (list+indexAux)->clientId = idAux;
-                strncpy((list+indexAux)->name, name, CLIENT_NAME_MAX);
-                strncpy((list+indexAux)->lastName, lastName, CLIENT_NAME_MAX);
+                strncpy((list+indexAux)->name, name, CLIENT_NAMES_MAX);
+                strncpy((list+indexAux)->lastName, lastName, CLIENT_NAMES_MAX);
                 strncpy((list+indexAux)->cuit, cuit, CUIT_MAX);
                 (list+indexAux)->isEmpty = FALSE;
                 returnValue = 0;
             }
             else
             {
-                printf("No hay elementos libres a cargar.\n");
+                printf(ERROR_FULL_LIST);
             }
         }
         else
@@ -148,14 +147,14 @@ int cliente_editClientByIndex(Client* list, int len, int index, int field)
         switch(field)
         {
             case 1:
-                if(utn_getString(clientAux.name, CLIENT_NAME_MAX, RETRY,
+                if(utn_getString(clientAux.name, CLIENT_NAMES_MAX, RETRY,
                     "Ingrese el nuevo Nombre: ", ERROR_MESSAGE, ONLY_LETTERS) == -1)
                 {
                     printf("Error de edicion del Nombre.\n");
                 }
                 break;
             case 2:
-                if(utn_getString(clientAux.lastName, CLIENT_NAME_MAX, RETRY,
+                if(utn_getString(clientAux.lastName, CLIENT_NAMES_MAX, RETRY,
                     "Ingrese el nuevo Apellido: ", ERROR_MESSAGE, ONLY_LETTERS) == -1)
                 {
                     printf("Error de edicion del Apellido.\n");
@@ -228,7 +227,7 @@ static int getNewClientId(void)
 
 static void printFormatClientByIndex(Client* list, int index, int table)
 {
-    char idAux[FORMAT_ID_LEN];
+    char idAux[FORMAT_LEN_ID];
 
     if(list != NULL && index >= 0 && index < CLIENT_MAX)
     {
