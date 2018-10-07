@@ -7,15 +7,6 @@
  */
 static int getNewPosterId(void);
 
-/** \brief
- *  Funcion que imprime el indice del Afiche.
- *  \param list Poster* Direccion de memoria del array de Afiches.
- *  \param len int Longitud del array de Afiches.
- *  \param index int Indice del array de Afiches.
- *  \return No retorna valores.
- */
-static void printFormatedPoster(Poster* list, int index, int table);
-
 int poster_init(Poster* list, int len)
 {
     int returnValue = -1;
@@ -153,24 +144,7 @@ int poster_remove(Poster* list, int len, int index)
     return returnValue;
 }
 
-void poster_print(Poster* list, int index)
-{
-    if(list != NULL && !(list+index)->isEmpty)
-    {
-        printFormatedPoster(list, 0, HEADER);
-        printFormatedPoster(list, index, BODY);
-        printFormatedPoster(list, 0, FOOTER);
-    }
-}
-
-static int getNewPosterId(void)
-{
-    static int posterIdCounter = POSTER_INIT - 1;
-    posterIdCounter++;
-    return posterIdCounter;
-}
-
-static void printFormatedPoster(Poster* list, int index, int table)
+void poster_printFormatedPoster(Poster* list, int index, int table)
 {
     char idAux[FORMAT_LEN_ID];
 
@@ -196,4 +170,21 @@ static void printFormatedPoster(Poster* list, int index, int table)
             printf(ERROR_EXIST_EMPTY);
         }
     }
+}
+
+void poster_print(Poster* list, int index)
+{
+    if(list != NULL && !(list+index)->isEmpty)
+    {
+        poster_printFormatedPoster(list, 0, HEADER);
+        poster_printFormatedPoster(list, index, BODY);
+        poster_printFormatedPoster(list, 0, FOOTER);
+    }
+}
+
+static int getNewPosterId(void)
+{
+    static int posterIdCounter = POSTER_INIT - 1;
+    posterIdCounter++;
+    return posterIdCounter;
 }

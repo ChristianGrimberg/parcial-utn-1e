@@ -78,6 +78,16 @@ int poster_add(Poster* list, int len, char* imageName);
  */
 int poster_remove(Poster* list, int len, int index);
 
+
+/** \brief
+ *  Funcion que imprime el indice del Afiche.
+ *  \param list Poster* Direccion de memoria del array de Afiches.
+ *  \param len int Longitud del array de Afiches.
+ *  \param index int Indice del array de Afiches.
+ *  \return No retorna valores.
+ */
+void poster_printFormatedPoster(Poster* list, int index, int table);
+
 /** \brief
  *  Funcion que imprime un indice de Afiche del array.
  *  \param list Poster* Direccion de memoria del array de Afiches.
