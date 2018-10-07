@@ -36,4 +36,36 @@ int poster_init(Poster* list, int len);
  */
 int poster_getFirstEmpty(Poster* list, int len);
 
+/** \brief
+ *  Funcion que busca si existe el ID del Afiche en el array
+ *      y devuelve el indice del elemento.
+ *  \param list Poster* Direccion de memoria del array de Afiches.
+ *  \param len int Longitud del array de Afiches.
+ *  \param id int Numero del ID del Afiche a buscar.
+ *  \return El indice del elemento del array, -1 si no lo encontro.
+ * 
+ */
+int poster_findById(Poster* list, int len, int id);
+
+/** \brief
+ *  Funcion que busca el ID del Afiche del nombre de la imagen.
+ *  \param list Poster* Direccion de memoria del array de Afiches.
+ *  \param len int Longitud del array de Afiches.
+ *  \param imageName char* Direccion de memoria del nombre de la imagen
+ *      del Afiche.
+ *  \return El ID del Afiche buscado, -1 si no lo encontro.
+ */
+int poster_findImage(Poster* list, int len, char* imageName);
+
+/** \brief
+ *  Funcion que agrega un Afiche al array.
+ *  \param list Poster* Direccion de memoria del array de Afiches.
+ *  \param len int Longitud del array de Afiches.
+ *  \param imageName char* Direccion de memoria del nombre de la imagen
+ *      del Afiche.
+ *  \return 0 si pudo agregar el Afiche correctamente, -1 si hubo un error.
+ * 
+ */
+int poster_add(Poster* list, int len, char* imageName);
+
 #endif //POSTER_H_INCLUDED

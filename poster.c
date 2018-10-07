@@ -47,6 +47,50 @@ int poster_getFirstEmpty(Poster* list, int len)
     return returnValue;
 }
 
+int poster_findById(Poster* list, int len, int id)
+{
+    int returnValue = -1;
+    int i;
+
+    if(list != NULL && len > 0 && len <= POSTER_MAX
+        && id >= POSTER_INIT && id <= POSTER_MAX)
+    {
+        for(i = 0; i < len; i++)
+        {
+            if((list+i)->isEmpty && (list+i)->posterId == id)
+            {
+                returnValue = i;
+                break;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
+int poster_findImage(Poster* list, int len, char* imageName)
+{
+    int returnValue = -1;
+    int i;
+    int idAux;
+
+    if(list != NULL && len >= POSTER_INIT && len < POSTER_MAX
+        && imageName != NULL)
+    {
+        for(i = 0; i < len; i++)
+        {
+            if(strncmp((list+i)->imageName, imageName, POSTER_NAME_MAX) == 0
+                && !(list+i)->isEmpty)
+            {
+                returnValue = (list+i)->posterId;
+                break;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 int poster_add(Poster* list, int len, char* imageName)
 {
     int returnValue = -1;
