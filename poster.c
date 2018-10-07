@@ -144,7 +144,7 @@ int poster_remove(Poster* list, int len, int index)
     return returnValue;
 }
 
-void poster_printFormatedPoster(Poster* list, int index, int table)
+void poster_printTableOptions(Poster* list, int index, int table)
 {
     char idAux[FORMAT_LEN_ID];
 
@@ -176,9 +176,9 @@ void poster_print(Poster* list, int index)
 {
     if(list != NULL && !(list+index)->isEmpty)
     {
-        poster_printFormatedPoster(list, 0, HEADER);
-        poster_printFormatedPoster(list, index, BODY);
-        poster_printFormatedPoster(list, 0, FOOTER);
+        poster_printTableOptions(list, 0, HEADER);
+        poster_printTableOptions(list, index, BODY);
+        poster_printTableOptions(list, 0, FOOTER);
     }
 }
 

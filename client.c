@@ -212,7 +212,7 @@ int client_remove(Client* list, int len, int index)
     return returnValue;
 }
 
-void client_printFormatedClient(Client* list, int index, int table)
+void client_printTableOptions(Client* list, int index, int table)
 {
     char idAux[FORMAT_LEN_ID];
 
@@ -243,9 +243,9 @@ void client_print(Client* list, int index)
 {
     if(list != NULL && !(list+index)->isEmpty)
     {
-        client_printFormatedClient(list, 0, HEADER);
-        client_printFormatedClient(list, index, BODY);
-        client_printFormatedClient(list, 0, FOOTER);
+        client_printTableOptions(list, 0, HEADER);
+        client_printTableOptions(list, index, BODY);
+        client_printTableOptions(list, 0, FOOTER);
     }
 }
 

@@ -6,7 +6,7 @@ void inform_printClientList(Client* list, int len)
 
     if(client_getQuantity(list, len) != -1)
     {
-        client_printFormatedClient(list, 0, HEADER);
+        client_printTableOptions(list, 0, HEADER);
         for(i = 0; i < len; i++)
         {
             if(list[i].isEmpty == TRUE)
@@ -15,10 +15,10 @@ void inform_printClientList(Client* list, int len)
             }
             else
             {
-                client_printFormatedClient(list, i, BODY);
+                client_printTableOptions(list, i, BODY);
             }
         }
-        client_printFormatedClient(list, 0, FOOTER);
+        client_printTableOptions(list, 0, FOOTER);
     }
     else
     {

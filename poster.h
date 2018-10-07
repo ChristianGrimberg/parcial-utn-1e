@@ -88,7 +88,7 @@ int poster_remove(Poster* list, int len, int index);
  *  \return No retorna valores.
  * 
  */
-void poster_printFormatedPoster(Poster* list, int index, int table);
+void poster_printTableOptions(Poster* list, int index, int table);
 
 /** \brief
  *  Funcion que imprime un indice de Afiche del array.

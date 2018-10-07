@@ -117,7 +117,7 @@ int client_remove(Client* list, int len, int index);
  *  \return No retorna valores.
  *
  */
-void client_printFormatedClient(Client* list, int index, int table);
+void client_printTableOptions(Client* list, int index, int table);
 
 /** \brief
  *  Imprime un elemento de un array de Clientes.
