@@ -41,7 +41,7 @@ int main()
                 case 2:
                     if(menu_editClientByUser(clients, CLIENT_MAX,
                         &indexAux, &optionSubMenu) == 0
-                    && client_editClientByIndex(clients, CLIENT_MAX,
+                    && client_edit(clients, CLIENT_MAX,
                         indexAux, optionSubMenu) == 0)
                     {
                         printf("Modificacion exitosa.\n");
@@ -54,7 +54,7 @@ int main()
                 case 3:
                     if(menu_removeClientByUser(clients, CLIENT_MAX,
                         &indexAux) == 1
-                    && client_removeClientByIndex(clients, CLIENT_MAX,
+                    && client_remove(clients, CLIENT_MAX,
                         indexAux) == 0)
                     {
                         printf("Se dio de baja el/la Cliente/a.\n");
@@ -90,6 +90,7 @@ int main()
                     }
                     break;
                 case 7:
+                    menu_clearScreen();
                     inform_printClientList(clients, CLIENT_MAX);
                     break;
                 case 8:

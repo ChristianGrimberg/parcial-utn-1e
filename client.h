@@ -96,7 +96,7 @@ int client_getQuantity(Client* list, int len);
  *  \return 0 si la edicion fue correcta, -1 si hubo un error.
  *
  */
-int client_editClientByIndex(Client* list, int len, int index, int field);
+int client_edit(Client* list, int len, int index, int field);
 
 /** \brief
  *  La funcion da de baja un Cliente del array indicando si estado en FALSE
@@ -107,7 +107,7 @@ int client_editClientByIndex(Client* list, int len, int index, int field);
  *  \return 0 si la baja fue correcta, -1 si hubo un error.
  *
  */
-int client_removeClientByIndex(Client* list, int len, int index);
+int client_remove(Client* list, int len, int index);
 
 /** \brief
  *  Imprime un elemento de un array de Clientes.

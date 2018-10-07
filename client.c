@@ -137,7 +137,7 @@ int client_getQuantity(Client* list, int len)
     {
         for(i = 0; i < len; i++)
         {
-            if((list+i)->isEmpty)
+            if(!(list+i)->isEmpty)
             {
                 clientCounter++;
             }
@@ -149,7 +149,7 @@ int client_getQuantity(Client* list, int len)
     return returnValue;
 }
 
-int client_editClientByIndex(Client* list, int len, int index, int field)
+int client_edit(Client* list, int len, int index, int field)
 {
     int returnValue = -1;
     Client clientAux;
@@ -164,21 +164,21 @@ int client_editClientByIndex(Client* list, int len, int index, int field)
                 if(utn_getString(clientAux.name, CLIENT_NAMES_MAX, RETRY,
                     "Ingrese el nuevo Nombre: ", ERROR_MESSAGE, ONLY_LETTERS) == -1)
                 {
-                    printf("Error de edicion del Nombre.\n");
+                    printf(ERROR_EDITION);
                 }
                 break;
             case 2:
                 if(utn_getString(clientAux.lastName, CLIENT_NAMES_MAX, RETRY,
                     "Ingrese el nuevo Apellido: ", ERROR_MESSAGE, ONLY_LETTERS) == -1)
                 {
-                    printf("Error de edicion del Apellido.\n");
+                    printf(ERROR_EDITION);
                 }
                 break;
             case 3:
                 if(utn_getCUIT(clientAux.cuit, CUIT_MAX, RETRY,
                     "Ingrese el nuevo CUIT: ", ERROR_MESSAGE) == -1)
                 {
-                    printf("Error de edicion del CUIT.\n");
+                    printf(ERROR_EDITION);
                 }
                 break;
         }
@@ -189,7 +189,7 @@ int client_editClientByIndex(Client* list, int len, int index, int field)
     return returnValue;
 }
 
-int client_removeClientByIndex(Client* list, int len, int index)
+int client_remove(Client* list, int len, int index)
 {
     int returnValue = -1;
 
