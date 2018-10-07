@@ -26,7 +26,10 @@
 #define ERROR_MESSAGE "Valor incorrecto. " /**< Mensaje de falla ante reintentos. */
 #define ERROR_EMPTY_LIST "No hay elementos en la lista.\n" /**< Mensaje de lista vacia. */
 #define ERROR_FULL_LIST "No hay elementos libres a cargar.\n" /**< Mensaje de lista llena. */
-#define ERROR_EXIST_ELEMENT "El elemento ya esta dado de baja.\n" /**< Mensaje de elemento existente. */
+#define ERROR_EXIST_EMPTY "El elemento ya esta dado de baja.\n" /**< Mensaje de elemento existente. */
+#define HEADER 1 /**< Encabezado de tabla de una lista. */
+#define BODY 2 /**< Cuerpo de tabla de una lista. */
+#define FOOTER 3 /**< Pie de tabla de una lista. */
 
 /** \brief
  *  Funcion para obtener un entero por teclado en un rango, con mensajes

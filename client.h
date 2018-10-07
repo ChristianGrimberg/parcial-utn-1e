@@ -6,9 +6,6 @@
 #define CUIT_MAX 32
 #define CLIENT_INIT 1
 #define CLIENT_MAX 100
-#define HEADER 1 /**< Encabezado de tabla de una lista de Clientes. */
-#define BODY 2 /**< Cuerpo de tabla de una lista de Clientes. */
-#define FOOTER 3 /**< Pie de tabla de una lista de Clientes. */
 #define FIELD_NAME 1 /**< Campo Nombre del Cliente. */
 #define FIELD_LASTNAME 2 /**< Campo Apellido del Cliente. */
 #define FIELD_CUIT 3 /**< Campo CUIT del Cliente. */

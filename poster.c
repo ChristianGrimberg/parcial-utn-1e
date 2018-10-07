@@ -7,6 +7,15 @@
  */
 static int getNewPosterId(void);
 
+/** \brief
+ *  Funcion que imprime el indice del Afiche.
+ *  \param list Poster* Direccion de memoria del array de Afiches.
+ *  \param len int Longitud del array de Afiches.
+ *  \param index int Indice del array de Afiches.
+ *  \return No retorna valores.
+ */
+static void printFormatedPoster(Poster* list, int index, int table);
+
 int poster_init(Poster* list, int len)
 {
     int returnValue = -1;
@@ -138,11 +147,21 @@ int poster_remove(Poster* list, int len, int index)
         }
         else
         {
-            printf(ERROR_EXIST_ELEMENT);
+            printf(ERROR_EXIST_EMPTY);
         }
     }
 
     return returnValue;
+}
+
+void poster_print(Poster* list, int index)
+{
+    if(list != NULL && !(list+index)->isEmpty)
+    {
+        printFormatedPoster(list, 0, HEADER);
+        printFormatedPoster(list, index, BODY);
+        printFormatedPoster(list, 0, FOOTER);
+    }
 }
 
 static int getNewPosterId(void)
@@ -150,4 +169,32 @@ static int getNewPosterId(void)
     static int posterIdCounter = POSTER_INIT - 1;
     posterIdCounter++;
     return posterIdCounter;
+}
+
+static void printFormatedPoster(Poster* list, int index, int table)
+{
+    char idAux[FORMAT_LEN_ID];
+
+    if(list != NULL && index >= 0 && index < POSTER_MAX)
+    {
+        if(!(list+index)->isEmpty)
+        {
+            sprintf(idAux, "%d", (list+index)->posterId);
+            if(table == HEADER)
+            {
+                printf("+=====+====================+\n");
+                printf("|%4s%1s|%10s%10s|\n",
+                    "ID", "", "Imagen", "");
+                printf("+=====+====================+\n");
+            }
+            else if(table == BODY)
+                printf("|%4s |%19s |\n", idAux, (list+index)->imageName);
+            else if(table == FOOTER)
+                printf("+-----+--------------------+\n");
+        }
+        else
+        {
+            printf(ERROR_EXIST_EMPTY);
+        }
+    }
 }

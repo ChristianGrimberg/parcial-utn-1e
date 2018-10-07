@@ -189,7 +189,7 @@ int cliente_removeClientByIndex(Client* list, int len, int index)
         }
         else
         {
-            printf(ERROR_EXIST_ELEMENT);
+            printf(ERROR_EXIST_EMPTY);
         }
     }
 
