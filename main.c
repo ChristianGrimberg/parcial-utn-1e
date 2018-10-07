@@ -27,7 +27,7 @@ int main()
             switch(selectionMenu)
             {
                 case 1:
-                    if(!menu_loadNewClientByUser(&clientAux)
+                    if(!menu_loadClientAux(&clientAux)
                     && !client_add(clients, CLIENT_MAX, clientAux.name,
                         clientAux.lastName, clientAux.cuit))
                     {
@@ -39,7 +39,7 @@ int main()
                     }
                     break;
                 case 2:
-                    if(!menu_editClientByUser(clients, CLIENT_MAX,
+                    if(!menu_showEditClientValues(clients, CLIENT_MAX,
                         &indexAux, &optionSubMenu)
                     && !client_edit(clients, CLIENT_MAX,
                         indexAux, optionSubMenu))
@@ -66,7 +66,7 @@ int main()
                     break;
                 case 4:
                     if(!menu_loadNewVentaByUser(&saleAux, clients, CLIENT_MAX)
-                    && !venta_addVenta(sales, SALES_MAX, saleAux.clientId,
+                    && !sale_addVenta(sales, SALES_MAX, saleAux.clientId,
                         saleAux.cantidadAfiches, saleAux.nombreAfiche, saleAux.zona))
                     {
                         printf("Venta ingresada correctamente.\n");
@@ -79,7 +79,7 @@ int main()
                 case 5:
                     if(!menu_editVentaByUser(sales, SALES_MAX,
                         &indexAux, &optionSubMenu)
-                    && !venta_editVentaByIndex(sales, SALES_MAX,
+                    && !sale_editVentaByIndex(sales, SALES_MAX,
                         clients, CLIENT_MAX, indexAux, optionSubMenu))
                     {
                         printf("Modificacion exitosa.\n");
@@ -102,7 +102,8 @@ int main()
             && !utn_getChar(&runProgram, RETRY,
                 "Desea Continuar? (S/N): ", ERROR_MESSAGE))
             {
-                if((char)(toupper(runProgram)) == 'N')
+                if((char)(toupper(runProgram)) == 'N'
+                || (char)(toupper(runProgram)) == 'S')
                 {
                     menu_clearScreen();
                     break;

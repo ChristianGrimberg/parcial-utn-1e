@@ -7,8 +7,8 @@
 #define MENU_PRINCIPAL_MAX 8 /**< Maxima opcion del menu principal. */
 #define MENU_EDIT_MIN 1 /**< Minima opcion del menu de edicion. */
 #define MENU_EDIT_MAX 4 /**< Maxima opcion del menu de edicion. */
-#define VENTA_EDIT_MIN 1
-#define VENTA_EDIT_MAX 5
+#define SALE_EDIT_MIN 1
+#define SALE_EDIT_MAX 5
 
 /** \brief
  *  Funcion que pausa la ejecucion del programa hasta presionar Enter con un mensaje.
@@ -42,7 +42,7 @@ int menu_showPrincipalMenu(int* selectionMenu);
  *  \return 0 si los valores son correctos, -1 si hubo un error.
  *
  */
-int menu_loadNewClientByUser(Client* client);
+int menu_loadClientAux(Client* client);
 
 /** \brief
  *  Funcion que brinda opciones para la modificacion de un Cliente.
@@ -54,7 +54,7 @@ int menu_loadNewClientByUser(Client* client);
  *  \return 0 si las opciones elegidas son validas, -1 si hubo un error.
  *
  */
-int menu_editClientByUser(Client* list, int len, int* index, int* selectionMenu);
+int menu_showEditClientValues(Client* list, int len, int* index, int* selectionMenu);
 
 /** \brief
  *  Funcion asiste al usuario para borrar a un Cliente.
@@ -70,6 +70,6 @@ int menu_loadNewVentaByUser(Sale* sale, Client* list, int len);
 
 int menu_editVentaByUser(Sale*, int len, int* index, int* selectionMenu);
 
-int venta_editVentaByIndex(Sale* saleList, int lenVenta, Client* clientList, int lenClient, int index, int field);
+int sale_editVentaByIndex(Sale* saleList, int lenVenta, Client* clientList, int lenClient, int index, int field);
 
 #endif //MENU_H_INCLUDED

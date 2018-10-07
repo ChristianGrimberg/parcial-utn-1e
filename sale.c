@@ -72,13 +72,13 @@ int sale_selectionZone(int* zona)
     return returnValue;
 }
 
-int venta_findVentaById(Sale* list, int len, int id)
+int sale_findVentaById(Sale* list, int len, int id)
 {
     int returnValue = -1;
     int i;
 
     if(list != NULL && len > 0
-    && len <= SALES_MAX && id >= VENTA_INIT && id < SALES_MAX)
+    && len <= SALES_MAX && id >= SALE_INIT && id < SALES_MAX)
     {
         for(i = 0; i < len; i++)
         {
@@ -93,7 +93,7 @@ int venta_findVentaById(Sale* list, int len, int id)
     return returnValue;
 }
 
-int venta_addVenta(Sale* list, int len, int clientId,
+int sale_addVenta(Sale* list, int len, int clientId,
     int cantidadAfiches, char* nombreAfiche, int zona)
 {
     int returnValue = -1;
@@ -104,7 +104,7 @@ int venta_addVenta(Sale* list, int len, int clientId,
         && clientId > 0 && cantidadAfiches >= 0 && nombreAfiche != NULL)
     {
         idAux = getNewSaleId();
-        if(idAux >= VENTA_INIT && idAux <= SALES_MAX)
+        if(idAux >= SALE_INIT && idAux <= SALES_MAX)
         {
             indexAux = sale_getFirstEmptySale(list, len);
             if(indexAux != -1)
@@ -120,7 +120,7 @@ int venta_addVenta(Sale* list, int len, int clientId,
             }
             else
             {
-                printf(ERROR_FULL_LIST);
+                printf(ERROR_EXIST_FULL);
             }
         }
         else
@@ -134,7 +134,7 @@ int venta_addVenta(Sale* list, int len, int clientId,
 
 static int getNewSaleId(void)
 {
-    static int ventaIdCounter = VENTA_INIT - 1;
+    static int ventaIdCounter = SALE_INIT - 1;
     ventaIdCounter++;
     return ventaIdCounter;
 }

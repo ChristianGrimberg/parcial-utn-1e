@@ -8,7 +8,7 @@
 #define CABA 1
 #define ZONA_SUR 2
 #define ZONA_OESTE 3
-#define VENTA_INIT 1
+#define SALE_INIT 1
 #define A_COBRAR 1
 #define COBRADA 2
 #define FIELD_CLIENT_ID 1
@@ -47,7 +47,7 @@ int sale_getFirstEmptySale(Sale* list, int len);
 
 int sale_selectionZone(int* zona);
 
-int venta_findVentaById(Sale*, int len, int id);
+int sale_findVentaById(Sale*, int len, int id);
 
 /** \brief
  *  La funcion agrega una nueva Venta de acuerdo a los parametros ingresados
@@ -61,7 +61,7 @@ int venta_findVentaById(Sale*, int len, int id);
  *  \return 0 si se pudo agregar la Venta, -1 si hubo un error.
  *
  */
-int venta_addVenta(Sale*, int len, int clientId,
+int sale_addVenta(Sale*, int len, int clientId,
     int cantidadAfiches, char* nombreAfiche, int zona);
 
 #endif // SALE_H_INCLUDED

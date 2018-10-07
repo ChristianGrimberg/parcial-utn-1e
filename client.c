@@ -115,7 +115,7 @@ int client_add(Client* list, int len, char* name, char* lastName,
             }
             else
             {
-                printf(ERROR_FULL_LIST);
+                printf(ERROR_EXIST_FULL);
             }
         }
         else

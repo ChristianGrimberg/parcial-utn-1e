@@ -42,7 +42,7 @@ int menu_showPrincipalMenu(int* selectionMenu)
     return returnValue;
 }
 
-int menu_loadNewClientByUser(Client* client)
+int menu_loadClientAux(Client* client)
 {
     int returnValue = -1;
     Client clientAux;
@@ -61,7 +61,7 @@ int menu_loadNewClientByUser(Client* client)
     return returnValue;
 }
 
-int menu_editClientByUser(Client* list, int len, int* index, int* selectionMenu)
+int menu_showEditClientValues(Client* list, int len, int* index, int* selectionMenu)
 {
     int returnValue = -1;
     int optionAux;
@@ -208,7 +208,7 @@ int menu_editVentaByUser(Sale* list, int len, int* index, int* selectionMenu)
     if(utn_getInt(&idAux, RETRY, CLIENT_INIT, CLIENT_MAX,
         "Ingrese el ID de venta a modificar: ", ERROR_MESSAGE) == 0)
     {
-        indexAux = venta_findVentaById(list, len, idAux);
+        indexAux = sale_findVentaById(list, len, idAux);
         if(indexAux != -1)
         {
             menu_clearScreen();
@@ -219,7 +219,7 @@ int menu_editVentaByUser(Sale* list, int len, int* index, int* selectionMenu)
             printf("4. Modificar la Zona.\n");
             printf("5. Salir de la edicion.\n");
             printf("=======================================\n");
-            if(utn_getInt(&optionAux, RETRY, VENTA_EDIT_MIN, VENTA_EDIT_MAX,
+            if(utn_getInt(&optionAux, RETRY, SALE_EDIT_MIN, SALE_EDIT_MAX,
                 "Indique la opcion deseada: ", "Seleccion no valida. ") == 0)
             {
                 *selectionMenu = optionAux;
@@ -236,7 +236,7 @@ int menu_editVentaByUser(Sale* list, int len, int* index, int* selectionMenu)
     return returnValue;
 }
 
-int venta_editVentaByIndex(Sale* saleList, int lenVenta, Client* clientList, int lenClient, int index, int field)
+int sale_editVentaByIndex(Sale* saleList, int lenVenta, Client* clientList, int lenClient, int index, int field)
 {
     int returnValue = -1;
     Sale saleAux;

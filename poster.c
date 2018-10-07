@@ -111,7 +111,7 @@ int poster_add(Poster* list, int len, char* imageName)
             }
             else
             {
-                printf(ERROR_FULL_LIST);
+                printf(ERROR_EXIST_FULL);
             }
         }
         else
