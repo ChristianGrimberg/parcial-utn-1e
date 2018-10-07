@@ -54,6 +54,7 @@ int poster_findId(Poster* list, int len, int id);
  *  \param imageName char* Direccion de memoria del nombre de la imagen
  *      del Afiche.
  *  \return El ID del Afiche buscado, -1 si no lo encontro.
+ * 
  */
 int poster_findImage(Poster* list, int len, char* imageName);
 
@@ -85,6 +86,7 @@ int poster_remove(Poster* list, int len, int index);
  *  \param len int Longitud del array de Afiches.
  *  \param index int Indice del array de Afiches.
  *  \return No retorna valores.
+ * 
  */
 void poster_printFormatedPoster(Poster* list, int index, int table);
 

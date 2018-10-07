@@ -28,7 +28,7 @@ int main()
             {
                 case 1:
                     if(!menu_loadNewClientByUser(&clientAux)
-                    && !client_addClient(clients, CLIENT_MAX, clientAux.name,
+                    && !client_add(clients, CLIENT_MAX, clientAux.name,
                         clientAux.lastName, clientAux.cuit))
                     {
                         printf("Cliente/a ingresado/a correctamente.\n");

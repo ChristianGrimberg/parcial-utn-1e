@@ -27,7 +27,7 @@ int client_init(Client* list, int len)
     return returnValue;
 }
 
-int client_getFirstEmptyClient(Client* list, int len)
+int client_getFirstEmpty(Client* list, int len)
 {
     int returnValue = -1;
     int i;
@@ -47,7 +47,7 @@ int client_getFirstEmptyClient(Client* list, int len)
     return returnValue;
 }
 
-int client_findClientById(Client* list, int len, int id)
+int client_findId(Client* list, int len, int id)
 {
     int returnValue = -1;
     int i;
@@ -68,7 +68,29 @@ int client_findClientById(Client* list, int len, int id)
     return returnValue;
 }
 
-int client_addClient(Client* list, int len, char* name, char* lastName,
+int client_findCUIT(Client* list, int len, char* cuit)
+{
+    int returnValue = -1;
+    int i;
+
+    if(list != NULL && len >= CLIENT_INIT && len <= CLIENT_MAX
+        && cuit != NULL)
+    {
+        for(i = 0; i < len; i++)
+        {
+            if(strncmp((list+i)->cuit, cuit, CUIT_MAX) == 0
+                && !(list+i)->isEmpty)
+            {
+                returnValue = (list+i)->clientId;
+                break;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
+int client_add(Client* list, int len, char* name, char* lastName,
     char* cuit)
 {
     int returnValue = -1;
@@ -81,8 +103,8 @@ int client_addClient(Client* list, int len, char* name, char* lastName,
         idAux = getNewClientId();
         if(idAux >= CLIENT_INIT && idAux <= CLIENT_MAX)
         {
-            indexAux = client_getFirstEmptyClient(list, len);
-            if(indexAux != -1)
+            indexAux = client_getFirstEmpty(list, len);
+            if(indexAux != -1 && client_findCUIT(list, len, cuit) == -1)
             {
                 (list+indexAux)->clientId = idAux;
                 strncpy((list+indexAux)->name, name, CLIENT_NAMES_MAX);
@@ -105,7 +127,7 @@ int client_addClient(Client* list, int len, char* name, char* lastName,
     return returnValue;
 }
 
-int client_getNumberOfClients(Client* list, int len)
+int client_getQuantity(Client* list, int len)
 {
     int returnValue = -1;
     int clientCounter = 0;
@@ -115,8 +137,10 @@ int client_getNumberOfClients(Client* list, int len)
     {
         for(i = 0; i < len; i++)
         {
-            if(list[i].isEmpty == FALSE)
+            if((list+i)->isEmpty)
+            {
                 clientCounter++;
+            }
         }
         if(clientCounter > 0)
             returnValue = clientCounter;

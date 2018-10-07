@@ -42,7 +42,7 @@ int client_init(Client* list, int len);
  *  \return El indice del elemento libre, -1 si no encontro elemento libre.
  *
  */
-int client_getFirstEmptyClient(Client* list, int len);
+int client_getFirstEmpty(Client* list, int len);
 
 /** \brief
  *  La funcion busca un Cliente en un array por el campo Id.
@@ -52,7 +52,17 @@ int client_getFirstEmptyClient(Client* list, int len);
  *  \return El indice del elemento en el array, de lo contrario devuelve -1.
  *
  */
-int client_findClientById(Client* list, int len, int id);
+int client_findId(Client* list, int len, int id);
+
+/** \brief
+ *  Funcion que busca el ID del Cliente con el mismo CUIT.
+ *  \param list Client* Direccion de memoria del array de Clientes.
+ *  \param len int Longitud del array de Clientes.
+ *  \param cuit char* Campo CUIT del Cliente.
+ *  \return El ID del Cliente buscado, -1 si no lo encontro.
+ * 
+ */
+int client_findCUIT(Client* list, int len, char* cuit);
 
 /** \brief
  *  La funcion agrega un nuevo Cliente de acuerdo a los parametros ingresados
@@ -65,7 +75,7 @@ int client_findClientById(Client* list, int len, int id);
  *  \return 0 si se pudo agregar el Cliente, -1 si hubo un error.
  *
  */
-int client_addClient(Client* list, int len, char* name, char* lastName,
+int client_add(Client* list, int len, char* name, char* lastName,
     char* cuit);
 
 /** \brief
@@ -75,7 +85,7 @@ int client_addClient(Client* list, int len, char* name, char* lastName,
  *  \return La cantidad de Cliente Activos, si no hay ninguno devuelve -1.
  *
  */
-int client_getNumberOfClients(Client* list, int len);
+int client_getQuantity(Client* list, int len);
 
 /** \brief
  *  La funcion edita un Cliente del array mediante el ingreso del indice del Array.

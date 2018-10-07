@@ -69,13 +69,13 @@ int menu_editClientByUser(Client* list, int len, int* index, int* selectionMenu)
     int indexAux;
     int clientQty;
 
-    clientQty = client_getNumberOfClients(list, len);
+    clientQty = client_getQuantity(list, len);
     if(clientQty != -1)
     {
         if(utn_getInt(&idAux, RETRY, CLIENT_INIT, CLIENT_MAX,
             "Ingrese el numero ID a modificar: ", ERROR_MESSAGE) == 0)
         {
-            indexAux = client_findClientById(list, len, idAux);
+            indexAux = client_findId(list, len, idAux);
             if(indexAux != -1)
             {
                 menu_clearScreen();
@@ -116,13 +116,13 @@ int menu_removeClientByUser(Client* list, int len, int* index)
     char deleteClient;
     int clientQty;
 
-    clientQty = client_getNumberOfClients(list, len);
+    clientQty = client_getQuantity(list, len);
     if(clientQty != -1)
     {
         if(utn_getInt(&idAux, RETRY, CLIENT_INIT, CLIENT_MAX,
             "Ingrese el ID del/la Cliente/a a eliminar: ", ERROR_MESSAGE) == 0)
         {
-            indexAux = client_findClientById(list, len, idAux);
+            indexAux = client_findId(list, len, idAux);
             if(indexAux != -1)
             {
                 menu_clearScreen();
@@ -168,7 +168,7 @@ int menu_loadNewVentaByUser(Sale* sale, Client* list, int len)
     if(utn_getInt(&clientId, RETRY, CLIENT_INIT, CLIENT_MAX,
         "Ingrese el ID del/la Cliente/a a vender: ", ERROR_MESSAGE) == 0)
     {
-        clientIndex = client_findClientById(list, len, clientId);
+        clientIndex = client_findId(list, len, clientId);
         if(clientIndex != -1)
         {
             menu_clearScreen();
@@ -254,7 +254,7 @@ int venta_editVentaByIndex(Sale* saleList, int lenVenta, Client* clientList, int
                 if(utn_getInt(&clientId, RETRY, CLIENT_INIT, CLIENT_MAX,
                     "Ingrese el ID del/la Cliente/a: ", ERROR_MESSAGE) == 0)
                 {
-                    clientIndex = client_findClientById(clientList, lenClient, clientId);
+                    clientIndex = client_findId(clientList, lenClient, clientId);
                     if(clientIndex != -1)
                     {
                         client_print(clientList, clientIndex);
