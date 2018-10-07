@@ -102,7 +102,7 @@ int poster_add(Poster* list, int len, char* imageName)
         if(idAux >= POSTER_INIT && idAux <= POSTER_MAX)
         {
             indexAux = poster_getFirstEmpty(list, len);
-            if(indexAux != -1)
+            if(indexAux != -1 && poster_findImage(list, len, imageName) == -1)
             {
                 (list+indexAux)->posterId = idAux;
                 strncpy((list+indexAux)->imageName, imageName, POSTER_NAME_MAX);
