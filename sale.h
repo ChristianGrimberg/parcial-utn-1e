@@ -67,6 +67,9 @@ int sale_add(Sale* list, int len, int clientId, int posterId,
 int sale_edit(Sale* saleList, int lenVenta,
     Client* clientList, int lenClient, int index, int field);
 
+int sale_removeByClient(Sale* saleList, int saleLen, Client* clientList,
+    int clientLen, int clientId);
+
 void sale_printTableOptions(Sale* saleList, int saleLen, Client* clientList,
     int clientLen, Poster* posterList, int posterLen, int index, int table);
 

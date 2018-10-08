@@ -192,6 +192,31 @@ int sale_edit(Sale* saleList, int saleLen, Client* clientList, int clientLen,
     return returnValue;
 }
 
+int sale_removeByClient(Sale* saleList, int saleLen, Client* clientList,
+    int clientLen, int clientId)
+{
+    int returnValue = -1;
+    int i;
+
+    if(saleList != NULL && saleLen > 0 && saleLen <= SALE_MAX
+        && clientList != NULL && clientLen > 0 && clientLen <= CLIENT_MAX)
+    {
+        returnValue = 0;
+        if(client_findId(clientList, clientLen, clientId) != -1)
+        {
+            for(i = 0; i < saleLen; i++)
+            {
+                if((saleList+i)->clientId == clientId)
+                {
+                    (saleList+i)->isEmpty = TRUE;                    
+                }
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 void sale_printTableOptions(Sale* saleList, int saleLen, Client* clientList,
     int clientLen, Poster* posterList, int posterLen, int index, int table)
 {

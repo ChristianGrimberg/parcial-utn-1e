@@ -56,7 +56,9 @@ int main()
                         if(menu_removeClientOptions(clients, CLIENT_MAX,
                             &indexAux)
                         && !client_remove(clients, CLIENT_MAX,
-                            indexAux))
+                            indexAux)
+                        && !sale_removeByClient(sales, SALE_MAX,
+                            clients, CLIENT_MAX, (clients+indexAux)->clientId))
                         {
                             printf("Baja exitosa.\n");
                         }
