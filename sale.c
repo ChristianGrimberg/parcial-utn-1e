@@ -61,8 +61,8 @@ int sale_selectionZone(int* zone)
         printf("|%d. Zona Sur.          |\n", ZONA_SUR);
         printf("|%d. Zona Oeste.        |\n", ZONA_OESTE);
         printf("+----------------------+\n");
-        if(utn_getInt(&optionAux, RETRY, CABA, ZONA_OESTE,
-            "Indique la opcion deseada: ", "Seleccion no valida. ") == 0)
+        if(!utn_getInt(&optionAux, RETRY, CABA, ZONA_OESTE,
+            "Indique la opcion deseada: ", "Seleccion no valida. "))
         {
             *zone = optionAux;
             returnValue = 0;
@@ -248,6 +248,20 @@ void sale_printTableOptions(Sale* saleList, int saleLen, Client* clientList,
     else
     {
         printf("El Cliente no existe.\n");
+    }
+}
+
+void sale_print(Sale* saleList, int saleLen, Client* clientList,
+    int clientLen, Poster* posterList, int posterLen, int index)
+{
+    if(!(saleList+index)->isEmpty)
+    {
+        sale_printTableOptions(saleList, saleLen, clientList, clientLen,
+            posterList, posterLen, index, HEADER);
+        sale_printTableOptions(saleList, saleLen, clientList, clientLen,
+            posterList, posterLen, index, BODY);
+        sale_printTableOptions(saleList, saleLen, clientList, clientLen,
+            posterList, posterLen, index, FOOTER);
     }
 }
 

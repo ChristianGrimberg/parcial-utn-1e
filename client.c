@@ -52,12 +52,12 @@ int client_findId(Client* list, int len, int id)
     int returnValue = -1;
     int i;
 
-    if(list != NULL && len > 0
-    && len <= CLIENT_MAX && id >= CLIENT_INIT && id < CLIENT_MAX)
+    if(list != NULL && len > 0 && len <= CLIENT_MAX
+        && id >= CLIENT_INIT && id <= CLIENT_MAX)
     {
         for(i = 0; i < len; i++)
         {
-            if(list[i].isEmpty == FALSE && list[i].clientId == id)
+            if(!(list+i)->isEmpty && (list+i)->clientId == id)
             {
                 returnValue = i;
                 break;

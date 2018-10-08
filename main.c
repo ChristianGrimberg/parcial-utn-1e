@@ -13,7 +13,8 @@ int main()
     char runProgram = 'S';
     int indexAux;
 
-    if(!client_init(clients, CLIENT_MAX) && !sale_init(sales, SALE_MAX))
+    if(!client_init(clients, CLIENT_MAX) && !sale_init(sales, SALE_MAX)
+        && !poster_init(posters, POSTER_MAX))
     {
         if(test_clientHardCode(clients, CLIENT_MAX) == -1)
         {
@@ -21,9 +22,9 @@ int main()
         }
         do
         {
-            menu_clearScreen();
             if(!menu_showPrincipalMenu(&selectionMenu))
             {
+                menu_clearScreen();
                 switch(selectionMenu)
                 {
                     case 1:
@@ -31,11 +32,11 @@ int main()
                         && !client_add(clients, CLIENT_MAX, clientAux.name,
                             clientAux.lastName, clientAux.cuit))
                         {
-                            printf("Cliente/a ingresado/a correctamente.\n");
+                            printf("Carga exitosa.\n");
                         }
                         else
                         {
-                            printf("Carga de Cliente/a cancelada.\n");
+                            printf("Carga cancelada.\n");
                         }
                         break;
                     case 2:
@@ -57,7 +58,7 @@ int main()
                         && !client_remove(clients, CLIENT_MAX,
                             indexAux))
                         {
-                            printf("Se dio de baja el/la Cliente/a.\n");
+                            printf("Baja exitosa.\n");
                         }
                         else
                         {
@@ -65,17 +66,16 @@ int main()
                         }
                         break;
                     case 4:
-                        menu_clearScreen();
                         if(!menu_loadSaleAux(&saleAux, clients, CLIENT_MAX,
                             posters, POSTER_MAX)
                         && !sale_add(sales, SALE_MAX, saleAux.clientId,
                             saleAux.posterId, saleAux.posterQty, saleAux.zone))
                         {
-                            printf("Venta ingresada correctamente.\n");
+                            printf("Venta exitosa.\n");
                         }
                         else
                         {
-                            printf("Carga de Venta cancelada.\n");
+                            printf("Venta cancelada.\n");
                         }
                         break;
                     case 5:
@@ -92,11 +92,9 @@ int main()
                         }
                         break;
                     case 7:
-                        menu_clearScreen();
                         inform_printClientList(clients, CLIENT_MAX);
                         break;
                     case 8:
-                        menu_clearScreen();
                         runProgram = 'N';
                         break;
                 }

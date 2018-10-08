@@ -70,4 +70,7 @@ int sale_edit(Sale* saleList, int lenVenta,
 void sale_printTableOptions(Sale* saleList, int saleLen, Client* clientList,
     int clientLen, Poster* posterList, int posterLen, int index, int table);
 
+void sale_print(Sale* saleList, int saleLen, Client* clientList,
+    int clientLen, Poster* posterList, int posterLen, int index);
+
 #endif // SALE_H_INCLUDED

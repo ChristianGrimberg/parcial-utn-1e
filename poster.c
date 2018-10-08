@@ -73,7 +73,7 @@ int poster_findImage(Poster* list, int len, char* imageName)
     int returnValue = -1;
     int i;
 
-    if(list != NULL && len >= POSTER_INIT && len < POSTER_MAX
+    if(list != NULL && len >= POSTER_INIT && len <= POSTER_MAX
         && imageName != NULL)
     {
         for(i = 0; i < len; i++)

@@ -97,7 +97,7 @@ int menu_editClientOptions(Client* list, int len, int* index, int* selectionMenu
         }
         else
         {
-            printf("Edicion cancelada por error de valores ingresados.\n");
+            printf("Edicion cancelada por error.\n");
         }
     }
     else
@@ -120,7 +120,7 @@ int menu_removeClientOptions(Client* list, int len, int* index)
     if(clientQty != -1)
     {
         if(utn_getInt(&idAux, RETRY, CLIENT_INIT, CLIENT_MAX,
-            "Ingrese el ID del/la Cliente/a a eliminar: ", ERROR_MESSAGE) == 0)
+            "Ingrese el ID del Cliente a eliminar: ", ERROR_MESSAGE) == 0)
         {
             indexAux = client_findId(list, len, idAux);
             if(indexAux != -1)
@@ -130,7 +130,7 @@ int menu_removeClientOptions(Client* list, int len, int* index)
                 do
                 {
                     if(utn_getChar(&deleteClient, RETRY,
-                        "Desea eliminar el Cliente/a? (S/N): ", ERROR_MESSAGE) == 0
+                        "Desea eliminar el Cliente? (S/N): ", ERROR_MESSAGE) == 0
                     && (char)(toupper(deleteClient)) == 'S')
                     {
                         *index = indexAux;
@@ -146,7 +146,7 @@ int menu_removeClientOptions(Client* list, int len, int* index)
         }
         else
         {
-            printf("Baja cancelada por error de valores ingresados.\n");
+            printf("Baja cancelada por error.\n");
         }
     }
     else
@@ -168,6 +168,7 @@ int menu_loadSaleAux(Sale* sale, Client* clientList, int clientLen,
     int clientIndex;
     int posterIndex;
     char accept;
+    char message[STRING_MAX];
     
     inform_printClientList(clientList, clientLen);
     if(!utn_getInt(&clientId, RETRY, CLIENT_INIT, CLIENT_MAX,
@@ -176,10 +177,10 @@ int menu_loadSaleAux(Sale* sale, Client* clientList, int clientLen,
         clientIndex = client_findId(clientList, clientLen, clientId);
         if(clientIndex != -1)
         {
-            client_print(clientList, clientIndex);
-            if(!utn_getChar(&accept, 0,
-                "Esta de acuerdo con el Cliente? (S/N): ", ERROR_MESSAGE)
-            && (char)(toupper(accept)) == 'S')
+            sprintf(message, "Esta de acuerdo con el CUIT %s? (S/N): ",
+                (clientList+clientIndex)->cuit);
+            if(!utn_getChar(&accept, 0, message, ERROR_MESSAGE)
+                && (char)(toupper(accept)) == 'S')
             {
                 saleAux.clientId = clientId;
                 posterIndex = poster_getFirstEmpty(posterList, posterLen);
@@ -190,9 +191,9 @@ int menu_loadSaleAux(Sale* sale, Client* clientList, int clientLen,
                     "Ingrese la cantidad de Afiches: ", ERROR_MESSAGE))
                 {
                     printf("Elija la zona:\n");
-                    if(!sale_selectionZone(&saleAux.zone)
+                    if(saleAux.posterQty >= 0 && !sale_selectionZone(&saleAux.zone)
                     && !poster_add(posterList, posterLen, posterAux.imageName))
-                    {                        
+                    {
                         posterId = poster_findImage(posterList, posterLen,
                             posterAux.imageName);
                         if(posterId != -1)
@@ -223,7 +224,6 @@ int menu_editSaleOptions(Sale* list, int len, int* index, int* selectionMenu)
         indexAux = sale_findId(list, len, idAux);
         if(indexAux != -1)
         {
-            menu_clearScreen();
             printf("===========MODIFICAR VENTA=============\n");
             printf("1. Modificar el Cliente.\n");
             printf("2. Modificar la cantidad de Afiches.\n");
