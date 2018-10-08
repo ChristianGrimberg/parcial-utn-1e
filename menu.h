@@ -2,13 +2,14 @@
 #define MENU_H_INCLUDED
 
 #include "sale.h"
+#include "inform.h"
 #define PURGE_LEN 2 /**< Longitud del buffer de entrada para pausar la pantalla. */
 #define MENU_PRINCIPAL_MIN 1 /**< Minima opcion del menu principal. */
 #define MENU_PRINCIPAL_MAX 8 /**< Maxima opcion del menu principal. */
-#define MENU_EDIT_MIN 1 /**< Minima opcion del menu de edicion. */
-#define MENU_EDIT_MAX 4 /**< Maxima opcion del menu de edicion. */
+#define CLIENT_EDIT_MIN 1 /**< Minima opcion de edicion de Clientes. */
+#define CLIENT_EDIT_MAX 4 /**< Maxima opcion de edicion de Clientes. */
 #define SALE_EDIT_MIN 1
-#define SALE_EDIT_MAX 5
+#define SALE_EDIT_MAX 4
 
 /** \brief
  *  Funcion que pausa la ejecucion del programa hasta presionar Enter con un mensaje.
@@ -48,13 +49,13 @@ int menu_loadClientAux(Client* client);
  *  Funcion que brinda opciones para la modificacion de un Cliente.
  *  \param list Client* Direccion de memoria del array de Clientes.
  *  \param len int Longitud del array de Clientes.
- *  \param index int Direccion de memoria del Indice del Array del Cliente.
+ *  \param index int* Direccion de memoria del Indice del Array del Cliente.
  *  \param selectionMenu int* Direccion de memoria donde se almacena la
  *      opcion de menu elegida por el usuario.
  *  \return 0 si las opciones elegidas son validas, -1 si hubo un error.
  *
  */
-int menu_showEditClientValues(Client* list, int len, int* index, int* selectionMenu);
+int menu_editClientOptions(Client* list, int len, int* index, int* selectionMenu);
 
 /** \brief
  *  Funcion asiste al usuario para borrar a un Cliente.
@@ -64,12 +65,11 @@ int menu_showEditClientValues(Client* list, int len, int* index, int* selectionM
  *  \return 1 si encontro y acepta borrar el usuario, 0 si cancela el borrado.
  *
  */
-int menu_removeClientByUser(Client* list, int len, int* index);
+int menu_removeClientOptions(Client* list, int len, int* index);
 
-int menu_loadNewVentaByUser(Sale* sale, Client* list, int len);
+int menu_loadSaleAux(Sale* sale, Client* clientList, int clientLen,
+    Poster* posterList, int posterLen);
 
-int menu_editVentaByUser(Sale*, int len, int* index, int* selectionMenu);
-
-int sale_editVentaByIndex(Sale* saleList, int lenVenta, Client* clientList, int lenClient, int index, int field);
+int menu_editSaleOptions(Sale*, int len, int* index, int* selectionMenu);
 
 #endif //MENU_H_INCLUDED

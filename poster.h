@@ -70,6 +70,15 @@ int poster_findImage(Poster* list, int len, char* imageName);
 int poster_add(Poster* list, int len, char* imageName);
 
 /** \brief
+ *  La funcion obtiene la cantidad de Afiches activos de la lista.
+ *  \param list Poster* Direccion de memoria del array de Afiches.
+ *  \param len int Longitud del array de Afiches.
+ *  \return La cantidad de Afiches activos, si no hay ninguno devuelve -1.
+ *
+ */
+int poster_getQuantity(Poster* list, int len);
+
+/** \brief
  *  Funcion que cambia el estado a vacio al indice del Afiche ingresado.
  *  \param list Poster* Direccion de memoria del array de Afiches.
  *  \param len int Longitud del array de Afiches.

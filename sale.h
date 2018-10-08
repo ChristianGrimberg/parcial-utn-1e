@@ -3,7 +3,7 @@
 
 #include "client.h"
 #include "poster.h"
-#define SALES_MAX 1000
+#define SALE_MAX 1000
 #define ZONA_MAX 16
 #define CABA 1
 #define ZONA_SUR 2
@@ -18,12 +18,12 @@
 
 typedef struct
 {
-    int ventaId;
+    int saleId;
     int clientId;
-    int cantidadAfiches;
-    char nombreAfiche[POSTER_NAME_MAX];
-    int zona;
-    int estado;
+    int posterId;
+    int posterQty;
+    int zone;
+    int state;
     int isEmpty;
 }Sale;
 
@@ -43,11 +43,11 @@ int sale_init(Sale*, int len);
  *  \return El indice del elemento libre, -1 si no encontro elemento libre.
  *
  */
-int sale_getFirstEmptySale(Sale* list, int len);
+int sale_getFirstEmpty(Sale* list, int len);
 
-int sale_selectionZone(int* zona);
+int sale_selectionZone(int* zone);
 
-int sale_findVentaById(Sale*, int len, int id);
+int sale_findId(Sale*, int len, int id);
 
 /** \brief
  *  La funcion agrega una nueva Venta de acuerdo a los parametros ingresados
@@ -55,13 +55,19 @@ int sale_findVentaById(Sale*, int len, int id);
  *  \param list Venta* Direccion de memoria del array de Ventas.
  *  \param len int Longitud del array de Ventas.
  *  \param clientId int Id de Cliente.
- *  \param cantidadAfiches int
- *  \param nombreAfiche char*
+ *  \param posterId int
+ *  \param posterQty int
  *  \param zona int
  *  \return 0 si se pudo agregar la Venta, -1 si hubo un error.
  *
  */
-int sale_addVenta(Sale*, int len, int clientId,
-    int cantidadAfiches, char* nombreAfiche, int zona);
+int sale_add(Sale* list, int len, int clientId, int posterId,
+    int posterQty, int zone);
+
+int sale_edit(Sale* saleList, int lenVenta,
+    Client* clientList, int lenClient, int index, int field);
+
+void sale_printTableOptions(Sale* saleList, int saleLen, Client* clientList,
+    int clientLen, Poster* posterList, int posterLen, int index, int table);
 
 #endif // SALE_H_INCLUDED

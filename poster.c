@@ -123,6 +123,30 @@ int poster_add(Poster* list, int len, char* imageName)
     return returnValue;
 }
 
+int poster_getQuantity(Poster* list, int len)
+{
+    int returnValue = -1;
+    int posterCounter = 0;
+    int i;
+
+    if(list != NULL && len > 0 && len <= POSTER_MAX)
+    {
+        for(i = 0; i < len; i++)
+        {
+            if(!(list+i)->isEmpty)
+            {
+                posterCounter++;
+            }
+        }
+        if(posterCounter > 0)
+        {
+            returnValue = posterCounter;
+        }
+    }
+
+    return returnValue;
+}
+
 int poster_remove(Poster* list, int len, int index)
 {
     int returnValue = -1;

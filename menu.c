@@ -61,7 +61,7 @@ int menu_loadClientAux(Client* client)
     return returnValue;
 }
 
-int menu_showEditClientValues(Client* list, int len, int* index, int* selectionMenu)
+int menu_editClientOptions(Client* list, int len, int* index, int* selectionMenu)
 {
     int returnValue = -1;
     int optionAux;
@@ -86,7 +86,7 @@ int menu_showEditClientValues(Client* list, int len, int* index, int* selectionM
                 printf("3. Modificar el CUIT.\n");
                 printf("4. Salir de la edicion.\n");
                 printf("=======================================\n");
-                if(utn_getInt(&optionAux, RETRY, MENU_EDIT_MIN, MENU_EDIT_MAX,
+                if(utn_getInt(&optionAux, RETRY, CLIENT_EDIT_MIN, CLIENT_EDIT_MAX,
                     "Indique la opcion deseada: ", "Seleccion no valida. ") == 0)
                 {
                     *selectionMenu = optionAux;
@@ -108,7 +108,7 @@ int menu_showEditClientValues(Client* list, int len, int* index, int* selectionM
     return returnValue;
 }
 
-int menu_removeClientByUser(Client* list, int len, int* index)
+int menu_removeClientOptions(Client* list, int len, int* index)
 {
     int returnValue = 0;
     int idAux;
@@ -157,38 +157,50 @@ int menu_removeClientByUser(Client* list, int len, int* index)
     return returnValue;
 }
 
-int menu_loadNewVentaByUser(Sale* sale, Client* list, int len)
+int menu_loadSaleAux(Sale* sale, Client* clientList, int clientLen,
+    Poster* posterList, int posterLen)
 {
     int returnValue = -1;
     Sale saleAux;
+    Poster posterAux;
     int clientId;
+    int posterId;
     int clientIndex;
-    char acceptClient;
-
-    if(utn_getInt(&clientId, RETRY, CLIENT_INIT, CLIENT_MAX,
-        "Ingrese el ID del/la Cliente/a a vender: ", ERROR_MESSAGE) == 0)
+    int posterIndex;
+    char accept;
+    
+    inform_printClientList(clientList, clientLen);
+    if(!utn_getInt(&clientId, RETRY, CLIENT_INIT, CLIENT_MAX,
+        "Ingrese el ID del Cliente: ", ERROR_MESSAGE))
     {
-        clientIndex = client_findId(list, len, clientId);
+        clientIndex = client_findId(clientList, clientLen, clientId);
         if(clientIndex != -1)
         {
-            menu_clearScreen();
-            client_print(list, clientIndex);
-            if(utn_getChar(&acceptClient, 0,
-                "Esta de acuerdo con el/la Cliente/a? (S/N): ", ERROR_MESSAGE) == 0
-            && (char)(toupper(acceptClient)) == 'S')
+            client_print(clientList, clientIndex);
+            if(!utn_getChar(&accept, 0,
+                "Esta de acuerdo con el Cliente? (S/N): ", ERROR_MESSAGE)
+            && (char)(toupper(accept)) == 'S')
             {
                 saleAux.clientId = clientId;
-                if(utn_getInt(&saleAux.cantidadAfiches, RETRY, 0, INT_MAX,
-                    "Ingrese la cantidad de afiches: ", ERROR_MESSAGE) == 0
-                && utn_getString(saleAux.nombreAfiche, POSTER_NAME_MAX, RETRY,
-                    "Ingrese el archivo del afiche: ", ERROR_MESSAGE, ALL_CHARACTERES) == 0)
+                posterIndex = poster_getFirstEmpty(posterList, posterLen);
+                if(posterIndex != -1
+                && !utn_getString(posterAux.imageName, POSTER_NAME_MAX, RETRY,
+                    "Ingrese la imagen del Afiche: ", ERROR_MESSAGE, ALL_CHARACTERES)
+                && !utn_getInt(&saleAux.posterQty, RETRY, 0, INT_MAX,
+                    "Ingrese la cantidad de Afiches: ", ERROR_MESSAGE))
                 {
-                    menu_clearScreen();
                     printf("Elija la zona:\n");
-                    if(sale_selectionZone(&saleAux.zona) == 0)
-                    {
-                        *sale = saleAux;
-                        returnValue = 0;
+                    if(!sale_selectionZone(&saleAux.zone)
+                    && !poster_add(posterList, posterLen, posterAux.imageName))
+                    {                        
+                        posterId = poster_findImage(posterList, posterLen,
+                            posterAux.imageName);
+                        if(posterId != -1)
+                        {
+                            saleAux.posterId = posterId;
+                            *sale = saleAux;
+                            returnValue = 0;
+                        }
                     }
                 }
             }
@@ -198,7 +210,7 @@ int menu_loadNewVentaByUser(Sale* sale, Client* list, int len)
     return returnValue;
 }
 
-int menu_editVentaByUser(Sale* list, int len, int* index, int* selectionMenu)
+int menu_editSaleOptions(Sale* list, int len, int* index, int* selectionMenu)
 {
     int returnValue = -1;
     int optionAux;
@@ -208,16 +220,15 @@ int menu_editVentaByUser(Sale* list, int len, int* index, int* selectionMenu)
     if(utn_getInt(&idAux, RETRY, CLIENT_INIT, CLIENT_MAX,
         "Ingrese el ID de venta a modificar: ", ERROR_MESSAGE) == 0)
     {
-        indexAux = sale_findVentaById(list, len, idAux);
+        indexAux = sale_findId(list, len, idAux);
         if(indexAux != -1)
         {
             menu_clearScreen();
             printf("===========MODIFICAR VENTA=============\n");
             printf("1. Modificar el Cliente.\n");
             printf("2. Modificar la cantidad de Afiches.\n");
-            printf("3. Modificar el Archivo.\n");
-            printf("4. Modificar la Zona.\n");
-            printf("5. Salir de la edicion.\n");
+            printf("3. Modificar la Zona.\n");
+            printf("4. Salir de la edicion.\n");
             printf("=======================================\n");
             if(utn_getInt(&optionAux, RETRY, SALE_EDIT_MIN, SALE_EDIT_MAX,
                 "Indique la opcion deseada: ", "Seleccion no valida. ") == 0)
@@ -231,70 +242,6 @@ int menu_editVentaByUser(Sale* list, int len, int* index, int* selectionMenu)
     else
     {
         printf("Edicion cancelada por error de valores ingresados.\n");
-    }
-
-    return returnValue;
-}
-
-int sale_editVentaByIndex(Sale* saleList, int lenVenta, Client* clientList, int lenClient, int index, int field)
-{
-    int returnValue = -1;
-    Sale saleAux;
-    int clientId;
-    int clientIndex;
-    char acceptClient;
-
-    if(index >= 0 && index < SALES_MAX
-    && field >= FIELD_CLIENT_ID && field <= FIELD_ZONA)
-    {
-        saleAux = saleList[index];
-        switch(field)
-        {
-            case 1:
-                if(utn_getInt(&clientId, RETRY, CLIENT_INIT, CLIENT_MAX,
-                    "Ingrese el ID del/la Cliente/a: ", ERROR_MESSAGE) == 0)
-                {
-                    clientIndex = client_findId(clientList, lenClient, clientId);
-                    if(clientIndex != -1)
-                    {
-                        client_print(clientList, clientIndex);
-                        if(utn_getChar(&acceptClient, 0,
-                            "Esta de acuerdo con el/la Cliente/a? (S/N): ", ERROR_MESSAGE) == 0
-                        && (char)(toupper(acceptClient)) == 'S')
-                        {
-                            saleAux.clientId = clientId;
-                        }
-                        else
-                        {
-                            printf("Error de edicion del Cliente.\n");
-                        }
-                    }
-                }
-                break;
-            case 2:
-                if(utn_getInt(&saleAux.cantidadAfiches, RETRY, 0, INT_MAX,
-                    "Ingrese la nueva cantidad de Afiches: ", ERROR_MESSAGE) == -1)
-                {
-                    printf("Error de edicion de cantidad de Afiches.\n");
-                }
-                break;
-            case 3:
-                if(utn_getString(saleAux.nombreAfiche, POSTER_NAME_MAX, RETRY,
-                    "Ingrese el nuevo Archivo: ", ERROR_MESSAGE, ONLY_LETTERS) == -1)
-                {
-                    printf("Error de edicion del Archivo.\n");
-                }
-                break;
-            case 4:
-                printf("Elija la zona:\n");
-                if(sale_selectionZone(&saleAux.zona) == -1)
-                {
-                    printf("Error de edicion de la zona.\n");
-                }
-                break;
-        }
-        saleList[index] = saleAux;
-        returnValue = 0;
     }
 
     return returnValue;

@@ -79,10 +79,10 @@ int client_add(Client* list, int len, char* name, char* lastName,
     char* cuit);
 
 /** \brief
- *  La funcion obtiene la cantidad de Cliente Activos de la nomina.
- *  \param list Client* Direccion de memoria del array de Cliente.
- *  \param len int Longitud del array de Cliente.
- *  \return La cantidad de Cliente Activos, si no hay ninguno devuelve -1.
+ *  La funcion obtiene la cantidad de Clientes activos de la lista.
+ *  \param list Client* Direccion de memoria del array de Clientes.
+ *  \param len int Longitud del array de Clientes.
+ *  \return La cantidad de Clientes activos, si no hay ninguno devuelve -1.
  *
  */
 int client_getQuantity(Client* list, int len);
