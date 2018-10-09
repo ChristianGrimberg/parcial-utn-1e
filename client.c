@@ -96,6 +96,8 @@ int client_add(Client* list, int len, char* name, char* lastName,
     int returnValue = -1;
     int idAux;
     int indexAux;
+    int existId;
+    int existIndex;
 
     if(list != NULL && len > 0 && len <= CLIENT_MAX
         && name != NULL && lastName != NULL && cuit != NULL)
@@ -104,18 +106,24 @@ int client_add(Client* list, int len, char* name, char* lastName,
         if(idAux >= CLIENT_INIT && idAux <= CLIENT_MAX)
         {
             indexAux = client_getFirstEmpty(list, len);
-            if(indexAux != -1 && client_findCUIT(list, len, cuit) == -1)
+            if(indexAux != -1)
             {
-                (list+indexAux)->clientId = idAux;
-                strncpy((list+indexAux)->name, name, CLIENT_NAMES_MAX);
-                strncpy((list+indexAux)->lastName, lastName, CLIENT_NAMES_MAX);
-                strncpy((list+indexAux)->cuit, cuit, CUIT_MAX);
-                (list+indexAux)->isEmpty = FALSE;
-                returnValue = 0;
-            }
-            else
-            {
-                printf(ERROR_EXIST_FULL);
+                existId = client_findCUIT(list, len, cuit);
+                if(existId == -1)
+                {
+                    (list+indexAux)->clientId = idAux;
+                    strncpy((list+indexAux)->name, name, CLIENT_NAMES_MAX);
+                    strncpy((list+indexAux)->lastName, lastName, CLIENT_NAMES_MAX);
+                    strncpy((list+indexAux)->cuit, cuit, CUIT_MAX);
+                    (list+indexAux)->isEmpty = FALSE;
+                    returnValue = 0;
+                }
+                else
+                {
+                    existIndex = client_findId(list, len, existId);
+                    client_print(list, existIndex);
+                    printf(ERROR_EXIST_FULL);
+                }                
             }
         }
         else
