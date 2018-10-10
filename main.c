@@ -93,6 +93,14 @@ int main()
                             printf("Modificacion cancelada.\n");
                         }
                         break;
+                    case 6:
+                        if(!menu_editSaleState(sales, SALE_MAX, clients, CLIENT_MAX,
+                            posters, POSTER_MAX, &indexAux)
+                        && !sale_invoice(sales, SALE_EDIT_MAX, indexAux))
+                        {
+                            printf("Venta cobrada con exito.\n");
+                        }
+                        break;
                     case 7:
                         inform_printClientList(clients, CLIENT_MAX);
                         break;

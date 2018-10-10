@@ -249,3 +249,37 @@ int menu_editSaleOptions(Sale* saleList, int saleLen, Client* clientList, int cl
 
     return returnValue;
 }
+
+int menu_editSaleState(Sale* saleList, int saleLen, Client* clientList, int clientLen,
+    Poster* posterList, int posterLen, int* index)
+{
+    int returnValue = -1;
+    int idAux;
+    int indexAux;
+    char accept;
+
+    if(utn_getInt(&idAux, RETRY, CLIENT_INIT, CLIENT_MAX,
+        "Ingrese el ID de venta a modificar: ", ERROR_MESSAGE) == 0)
+    {
+        indexAux = sale_findId(saleList, saleLen, idAux);
+        if(indexAux != -1)
+        {
+            sale_print(saleList, saleLen, clientList, clientLen,
+                posterList, posterLen, indexAux);
+            if(!utn_getChar(&accept, 0,
+                "Esta a punto de cobrar la venta, esta de acuerdo? (S/N): "
+                , ERROR_MESSAGE)
+            && (char)(toupper(accept)) == 'S')
+            {
+                *index = indexAux;
+                returnValue = 0;
+            }
+            else
+            {
+                printf("Se cancela el cobro.\n");
+            }
+        }
+    }
+
+    return returnValue;
+}

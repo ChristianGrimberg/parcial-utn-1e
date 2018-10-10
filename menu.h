@@ -73,4 +73,7 @@ int menu_loadSaleAux(Sale* sale, Client* clientList, int clientLen,
 int menu_editSaleOptions(Sale* saleList, int saleLen, Client* clientList, int clientLen,
     Poster* posterList, int posterLen, int* index, int* selectionMenu);
 
+int menu_editSaleState(Sale* saleList, int saleLen, Client* clientList, int clientLen,
+    Poster* posterList, int posterLen, int* index);
+
 #endif //MENU_H_INCLUDED

@@ -70,6 +70,8 @@ int sale_getQuantity(Sale* list, int len);
 int sale_edit(Sale* saleList, int lenVenta,
     Client* clientList, int lenClient, int index, int field);
 
+int sale_invoice(Sale* list, int len, int index);
+
 int sale_removeByClient(Sale* saleList, int saleLen, Client* clientList,
     int clientLen, int clientId);
 

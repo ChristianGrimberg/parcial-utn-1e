@@ -216,6 +216,27 @@ int sale_edit(Sale* saleList, int saleLen, Client* clientList, int clientLen,
     return returnValue;
 }
 
+int sale_invoice(Sale* list, int len, int index)
+{
+    int returnValue = -1;
+
+    if(list != NULL && len > 0 && len <= SALE_MAX
+    && index >= 0 && index <= SALE_MAX)
+    {
+        if((list+index)->state == A_COBRAR && !(list+index)->isEmpty)
+        {
+            (list+index)->state = COBRADA;
+            returnValue = 0;
+        }
+        else
+        {
+            printf("Solo puede cobrar ventas a cobrar.\n");
+        }
+    }
+
+    return returnValue;
+}
+
 int sale_removeByClient(Sale* saleList, int saleLen, Client* clientList,
     int clientLen, int clientId)
 {
