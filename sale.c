@@ -134,6 +134,30 @@ int sale_add(Sale* list, int len, int clientId, int posterId,
     return returnValue;
 }
 
+int sale_getQuantity(Sale* list, int len)
+{
+    int returnValue = -1;
+    int saleCounter = 0;
+    int i;
+
+    if(list != NULL && len > 0 && len <= SALE_MAX)
+    {
+        for(i = 0; i < len; i++)
+        {
+            if(!(list+i)->isEmpty)
+            {
+                saleCounter++;
+            }
+        }
+        if(saleCounter > 0)
+        {
+            returnValue = saleCounter;
+        }
+    }
+
+    return returnValue;
+}
+
 int sale_edit(Sale* saleList, int saleLen, Client* clientList, int clientLen,
     int index, int field)
 {
@@ -144,7 +168,7 @@ int sale_edit(Sale* saleList, int saleLen, Client* clientList, int clientLen,
     char accept;
 
     if(index >= 0 && index < SALE_MAX
-    && field >= FIELD_CLIENT_ID && field <= FIELD_ZONA)
+    && field >= FIELD_CLIENT_ID && field <= FIELD_ZONE)
     {
         saleAux = saleList[index];
         switch(field)
@@ -221,58 +245,72 @@ void sale_printTableOptions(Sale* saleList, int saleLen, Client* clientList,
     int clientLen, Poster* posterList, int posterLen, int index, int table)
 {
     char saleIdAux[FORMAT_LEN_ID];
-    char clienteIdAux[FORMAT_LEN_ID];
-    char afichesAux[FORMAT_LEN_ID];
-    char zonaAux[ZONA_MAX];
+    char clientIdAux[FORMAT_LEN_ID];
+    char posterQtyAux[FORMAT_LEN_ID];
+    char zoneAux[ZONE_MAX];
+    char statusAux[STATUS_MAX];
     int clientIndex;
-    int posterInxdex;
+    int posterIndex;
 
     if(saleList != NULL && saleLen >= SALE_INIT && saleLen <= SALE_MAX
         && clientList != NULL && clientLen >= CLIENT_INIT && clientLen <= CLIENT_MAX
         && posterList != NULL && posterLen >= POSTER_INIT && posterLen <= POSTER_MAX
         && index >= 0 && index < SALE_MAX)
     {
-        clientIndex = client_findId(clientList, clientLen, (saleList+index)->clientId);
-        posterInxdex = poster_findId(posterList, posterLen, (saleList+index)->posterId);
-        if(clientIndex != -1 && posterInxdex != -1)
+        clientIndex = client_findId(clientList, clientLen, saleList[index].clientId);
+        posterIndex = poster_findId(posterList, posterLen, saleList[index].posterId);
+        if(clientIndex != -1)
         {
-            sprintf(saleIdAux, "%d", (saleList+index)->saleId);
-            sprintf(clienteIdAux, "%d", (saleList+index)->clientId);
-            sprintf(afichesAux, "%d", (saleList+index)->posterQty);
-            switch((saleList+index)->zone)
+            sprintf(saleIdAux, "%d", saleList[index].saleId);
+            sprintf(clientIdAux, "%d", saleList[index].clientId);
+            sprintf(posterQtyAux, "%d", saleList[index].posterQty);
+            switch(saleList[index].zone)
             {
-                case 1:
-                    strncpy(zonaAux, "CABA", ZONA_MAX);
+                case CABA:
+                    strncpy(zoneAux, "CABA", ZONE_MAX);
                     break;
-                case 2:
-                    strncpy(zonaAux, "Zona Sur", ZONA_MAX);
+                case ZONA_SUR:
+                    strncpy(zoneAux, "Zona Sur", ZONE_MAX);
                     break;
-                case 3:
-                    strncpy(zonaAux, "Zona Oeste", ZONA_MAX);
+                case ZONA_OESTE:
+                    strncpy(zoneAux, "Zona Oeste", ZONE_MAX);
+                    break;
+            }
+            switch((saleList+index)->state)
+            {
+                case A_COBRAR:
+                    strncpy(statusAux, "A cobrar", STATUS_MAX);
+                    break;
+                case COBRADA:
+                    strncpy(statusAux, "Cobrada", STATUS_MAX);
                     break;
             }
         }
         if(table == HEADER)
         {
-            printf("+============+====================+====================+"
-                "============+====================+\n");
-            printf("|%5s%7s|%10s%10s|%10s%10s|%5s%7s|%10s%10s|\n",
-                "ID Venta", "", "Cliente", "", "Imagen", "", "Cant.", "",
-                "Zona", "");
-            printf("+============+====================+====================+"
-                "============+====================+\n");
+            printf("+============+============+==============================+"
+                "====================+============+================+==========+\n");
+            printf("|%10s%2s|%11s%1s|%15s%15s|%10s%10s|%10s%2s|%8s%8s|%8s%2s|\n",
+                "ID Venta", "", "ID Cliente", "", "Cliente", "", 
+                "Imagen", "", "Cant.", "", "Zona", "", "Estado", "");
+            printf("+============+============+==============================+"
+                "====================+============+================+==========+\n");
         }
         else if(table == BODY)
-            printf("|%11s |%19s |%19s |%11s |%19s |\n",
-                saleIdAux, (clientList+clientIndex)->name,
-                (posterList+posterInxdex)->imageName, afichesAux, zonaAux);
+        {
+            printf("|%11s |%11s |%14s %14s |%19s |%11s |%15s |%9s |\n", saleIdAux,
+                clientIdAux, clientList[clientIndex].name, clientList[clientIndex].lastName,
+                posterList[posterIndex].imageName, posterQtyAux, zoneAux, statusAux);
+        }
         else if(table == FOOTER)
-            printf("+------------+--------------------+--------------------+"
-                "------------+--------------------+\n");
+        {
+            printf("+------------+------------+------------------------------+"
+                "--------------------+------------+----------------+----------+\n");
+        }
     }
     else
     {
-        printf("El Cliente no existe.\n");
+        printf(ERROR_NOT_EXIST);
     }
 }
 
@@ -282,11 +320,11 @@ void sale_print(Sale* saleList, int saleLen, Client* clientList,
     if(!(saleList+index)->isEmpty)
     {
         sale_printTableOptions(saleList, saleLen, clientList, clientLen,
-            posterList, posterLen, index, HEADER);
+            posterList, posterLen, 0, HEADER);
         sale_printTableOptions(saleList, saleLen, clientList, clientLen,
             posterList, posterLen, index, BODY);
         sale_printTableOptions(saleList, saleLen, clientList, clientLen,
-            posterList, posterLen, index, FOOTER);
+            posterList, posterLen, 0, FOOTER);
     }
 }
 

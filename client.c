@@ -244,7 +244,7 @@ void client_printTableOptions(Client* list, int index, int table)
                 "+--------------------+\n");
     }
     else
-        printf("El Cliente/a no existe.\n");
+        printf(ERROR_NOT_EXIST);
 }
 
 void client_print(Client* list, int index)

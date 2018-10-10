@@ -21,4 +21,7 @@ void inform_printClientList(Client* list, int len);
  */
 void inform_printPosterList(Poster* list, int len);
 
+void inform_printSaleList(Sale* saleList, int saleLen, Client* clientList,
+    int clientLen, Poster* posterList, int posterLen);
+
 #endif //INFORM_H_INCLUDED

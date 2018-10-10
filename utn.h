@@ -31,6 +31,7 @@
 #define ERROR_FULL_LIST "No hay elementos libres en la lista.\n" /**< Mensaje de lista llena. */
 #define ERROR_EXIST_EMPTY "El elemento ya esta dado de baja.\n" /**< Mensaje de elemento ya dado de baja. */
 #define ERROR_EXIST_FULL "El elemento ya existe.\n" /**< Mensaje de elemento pre-existente. */
+#define ERROR_NOT_EXIST "El elemento no existe.\n" /**< Mensaje de elemento que no existe. */
 #define ERROR_EDITION "Error de edicion del elemento.\n" /**< Mensaje de error de edicion. */
 
 /** \brief

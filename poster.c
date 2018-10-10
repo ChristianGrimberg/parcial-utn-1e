@@ -57,7 +57,7 @@ int poster_findId(Poster* list, int len, int id)
     {
         for(i = 0; i < len; i++)
         {
-            if((list+i)->isEmpty && (list+i)->posterId == id)
+            if(!(list+i)->isEmpty && (list+i)->posterId == id)
             {
                 returnValue = i;
                 break;

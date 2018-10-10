@@ -3,18 +3,19 @@
 
 #include "client.h"
 #include "poster.h"
+#define SALE_INIT 1
 #define SALE_MAX 1000
-#define ZONA_MAX 16
+#define ZONE_MAX 16
+#define STATUS_MAX 16
 #define CABA 1
 #define ZONA_SUR 2
 #define ZONA_OESTE 3
-#define SALE_INIT 1
 #define A_COBRAR 1
 #define COBRADA 2
 #define FIELD_CLIENT_ID 1
-#define FIELD_AFICHES 2
-#define FIELD_ARCHIVO 3
-#define FIELD_ZONA 4
+#define FIELD_POSTER 2
+#define FIELD_IMAGE 3
+#define FIELD_ZONE 4
 
 typedef struct
 {
@@ -63,6 +64,8 @@ int sale_findId(Sale*, int len, int id);
  */
 int sale_add(Sale* list, int len, int clientId, int posterId,
     int posterQty, int zone);
+
+int sale_getQuantity(Sale* list, int len);
 
 int sale_edit(Sale* saleList, int lenVenta,
     Client* clientList, int lenClient, int index, int field);

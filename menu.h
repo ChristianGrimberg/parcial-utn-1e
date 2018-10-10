@@ -70,6 +70,7 @@ int menu_removeClientOptions(Client* list, int len, int* index);
 int menu_loadSaleAux(Sale* sale, Client* clientList, int clientLen,
     Poster* posterList, int posterLen);
 
-int menu_editSaleOptions(Sale*, int len, int* index, int* selectionMenu);
+int menu_editSaleOptions(Sale* saleList, int saleLen, Client* clientList, int clientLen,
+    Poster* posterList, int posterLen, int* index, int* selectionMenu);
 
 #endif //MENU_H_INCLUDED

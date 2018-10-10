@@ -81,8 +81,8 @@ int main()
                         }
                         break;
                     case 5:
-                        if(!menu_editSaleOptions(sales, SALE_MAX,
-                            &indexAux, &optionSubMenu)
+                        if(!menu_editSaleOptions(sales, SALE_MAX, clients, CLIENT_MAX,
+                            posters, POSTER_MAX, &indexAux, &optionSubMenu)
                         && !sale_edit(sales, SALE_MAX,
                             clients, CLIENT_MAX, indexAux, optionSubMenu))
                         {

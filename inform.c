@@ -51,3 +51,33 @@ void inform_printPosterList(Poster* list, int len)
         printf(ERROR_EMPTY_LIST);
     }
 }
+
+void inform_printSaleList(Sale* saleList, int saleLen, Client* clientList,
+    int clientLen, Poster* posterList, int posterLen)
+{
+    int i;
+
+    if(sale_getQuantity(saleList, saleLen) != -1)
+    {
+        sale_printTableOptions(saleList, saleLen, clientList, clientLen,
+            posterList, posterLen, 0, HEADER);
+        for(i = 0; i < saleLen; i++)
+        {
+            if(saleList[i].isEmpty == TRUE)
+            {
+                continue;
+            }
+            else
+            {
+                sale_printTableOptions(saleList, saleLen, clientList, clientLen,
+                    posterList, posterLen, i, BODY);
+            }
+        }
+        sale_printTableOptions(saleList, saleLen, clientList, clientLen,
+            posterList, posterLen, 0, FOOTER);
+    }
+    else
+    {
+        printf(ERROR_EMPTY_LIST);
+    }
+}
