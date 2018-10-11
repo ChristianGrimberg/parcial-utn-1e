@@ -12,11 +12,15 @@ int main()
     int optionSubMenu;
     char runProgram = 'S';
     int indexAux;
+    int salesQty;
+    int posterQty;
 
     if(!client_init(clients, CLIENT_MAX) && !sale_init(sales, SALE_MAX)
         && !poster_init(posters, POSTER_MAX))
     {
-        if(test_clientHardCode(clients, CLIENT_MAX) == -1)
+        if(test_clientHardCode(clients, CLIENT_MAX) == -1
+        || test_posterHardCode(posters, POSTER_MAX) == -1
+        || test_saleHardCode(sales, SALE_MAX) == -1)
         {
             menu_pauseScreen(ERROR_HARDCODE);
         }
@@ -103,8 +107,78 @@ int main()
                         break;
                     case 7:
                         inform_printClientList(clients, CLIENT_MAX);
+                        inform_printSaleList(sales, SALE_MAX, clients, CLIENT_MAX, posters, POSTER_MAX);
                         break;
                     case 8:
+                        if(!menu_showInformMenu(&selectionMenu))
+                        {
+                            menu_clearScreen();
+                            switch(selectionMenu)
+                            {
+                                case 1:
+                                    salesQty = inform_printBestClient(sales, SALE_MAX,
+                                        clients, CLIENT_MAX, A_COBRAR, WITHOUT_POSTER);
+                                    if(salesQty == -1)
+                                    {
+                                        printf("No se encuentra clientes con mas ventas a cobrar.\n");
+                                    }
+                                    else
+                                    {
+                                        printf("%d ventas a cobrar.\n", salesQty);
+                                    }
+                                    break;
+                                case 2:
+                                    salesQty = inform_printBestClient(sales, SALE_MAX,
+                                        clients, CLIENT_MAX, COBRADA, WITHOUT_POSTER);
+                                    if(salesQty == -1)
+                                    {
+                                        printf("No se encuentra clientes con mas ventas cobradas.\n");
+                                    }
+                                    else
+                                    {
+                                        printf("%d ventas cobradas.\n", salesQty);
+                                    }
+                                    break;
+                                case 3:
+                                    salesQty = inform_printBestClient(sales, SALE_MAX,
+                                        clients, CLIENT_MAX, TODAS_VENTAS, WITHOUT_POSTER);
+                                    if(salesQty == -1)
+                                    {
+                                        printf("No se encuentra clientes con mas ventas.\n");
+                                    }
+                                    else
+                                    {
+                                        printf("%d ventas totales.\n", salesQty);
+                                    }
+                                    break;
+                                case 4:
+                                    posterQty = inform_printBestClient(sales, SALE_MAX,
+                                        clients, CLIENT_MAX, A_COBRAR, WITH_POSTER);
+                                    if(posterQty == -1)
+                                    {
+                                        printf("No se encuentra clientes con mas afiches a cobrar.\n");
+                                    }
+                                    else
+                                    {
+                                        printf("Tiene %d afiches a cobrar.\n", posterQty);
+                                    }
+                                    break;
+                                case 5:
+                                    posterQty = inform_printBestClient(sales, SALE_MAX,
+                                        clients, CLIENT_MAX, COBRADA, WITH_POSTER);
+                                    if(posterQty == -1)
+                                    {
+                                        printf("No se encuentra clientes que haya comprado mas afiches.\n");
+                                    }
+                                    else
+                                    {
+                                        printf("Compro %d afiches.\n", posterQty);
+                                    }
+                                    break;
+                            }
+                        }
+                        break;
+                    case 9:
                         runProgram = 'N';
                         break;
                 }

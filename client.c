@@ -123,7 +123,7 @@ int client_add(Client* list, int len, char* name, char* lastName,
                     existIndex = client_findId(list, len, existId);
                     client_print(list, existIndex);
                     printf(ERROR_EXIST_FULL);
-                }                
+                }
             }
         }
         else

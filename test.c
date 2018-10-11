@@ -17,3 +17,40 @@ int test_clientHardCode(Client* list, int len)
 
     return returnValue;
 }
+
+int test_posterHardCode(Poster* list, int len)
+{
+    int returnValue = -1;
+
+    if(WITH_HARDCODE
+    && (!poster_add(list, len, "imagen1.jpg")
+    && !poster_add(list, len, "imagen2.jpg")
+    && !poster_add(list, len, "imagen3.jpg")
+    && !poster_add(list, len, "imagen4.jpg")))
+    {
+        returnValue = 0;
+    }
+
+    return returnValue;
+}
+
+int test_saleHardCode(Sale* list, int len)
+{
+    int returnValue = -1;
+
+    if(WITH_HARDCODE
+    && (!sale_add(list, len, 1, 1, 20, CABA)
+    && !sale_add(list, len, 1, 2, 30, ZONA_SUR)
+    && !sale_add(list, len, 2, 2, 55, ZONA_OESTE)
+    && !sale_add(list, len, 3, 4, 10, ZONA_SUR)
+    && !sale_add(list, len, 3, 3, 60, CABA)
+    && !sale_add(list, len, 3, 1, 40, ZONA_OESTE)
+    && !sale_add(list, len, 4, 1, 45, ZONA_OESTE)
+    && !sale_add(list, len, 5, 3, 40, ZONA_SUR)
+    && !sale_add(list, len, 5, 4, 20, ZONA_OESTE)))
+    {
+        returnValue = 0;
+    }
+
+    return returnValue;
+}

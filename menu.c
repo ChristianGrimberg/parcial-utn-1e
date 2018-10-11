@@ -30,7 +30,8 @@ int menu_showPrincipalMenu(int* selectionMenu)
     printf("5. Editar Venta.\n");
     printf("6. Cobrar Venta.\n");
     printf("7. Imprimir Clientes.\n");
-    printf("8. Salir del programa.\n");
+    printf("8. Informes.\n");
+    printf("9. Salir del programa.\n");
     printf("=======================================\n");
     if(utn_getInt(&optionAux, RETRY, MENU_PRINCIPAL_MIN, MENU_PRINCIPAL_MAX,
         "Indique la opcion deseada: ", "Seleccion no valida. ") == 0)
@@ -166,7 +167,7 @@ int menu_loadSaleAux(Sale* sale, Client* clientList, int clientLen,
     int clientIndex;
     char accept;
     char message[STRING_MAX];
-    
+
     inform_printClientList(clientList, clientLen);
     if(!utn_getInt(&clientId, RETRY, CLIENT_INIT, CLIENT_MAX,
         "Ingrese el ID del Cliente: ", ERROR_MESSAGE))
@@ -279,6 +280,34 @@ int menu_editSaleState(Sale* saleList, int saleLen, Client* clientList, int clie
                 printf("Se cancela el cobro.\n");
             }
         }
+    }
+
+    return returnValue;
+}
+
+int menu_showInformMenu(int* selectionMenu)
+{
+    int returnValue = -1;
+    int optionAux;
+
+    printf("==========================INFORMES==========================\n");
+    printf("1. Cliente con mas ventas a cobrar.\n");
+    printf("2. Cliente con mas ventas cobradas.\n");
+    printf("3. Cliente con mas ventas\n");
+    printf("4. Cliente con mas afiches a cobrar.\n");
+    printf("5. Cliente que compro mas afiches.\n");
+    printf("6. Zona con menos afiches vendidos.\n");
+    printf("7. Cantidad de clientes que compraron menos de 1000 afiches.\n");
+    printf("8. Cantidad de afiches vendidos por cada una de las 3 zonas.\n");
+    printf("9. Listar ventas ordenadas por zonas.\n");
+    printf("10. Cantidad de afiches vendidos promedio por cliente.\n");
+    printf("11. Salir de informes.\n");
+    printf("============================================================\n");
+    if(utn_getInt(&optionAux, RETRY, INFORM_MENU_MIN, INFORM_MENU_MAX,
+        "Indique la opcion deseada: ", "Seleccion no valida. ") == 0)
+    {
+        *selectionMenu = optionAux;
+        returnValue = 0;
     }
 
     return returnValue;

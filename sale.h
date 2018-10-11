@@ -12,6 +12,7 @@
 #define ZONA_OESTE 3
 #define A_COBRAR 1
 #define COBRADA 2
+#define TODAS_VENTAS 3
 #define FIELD_CLIENT_ID 1
 #define FIELD_POSTER 2
 #define FIELD_IMAGE 3

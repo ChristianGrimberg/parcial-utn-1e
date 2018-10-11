@@ -13,4 +13,8 @@
  */
 int test_clientHardCode(Client* list, int len);
 
+int test_posterHardCode(Poster* list, int len);
+
+int test_saleHardCode(Sale* list, int len);
+
 #endif //TEST_H_INCLUDED

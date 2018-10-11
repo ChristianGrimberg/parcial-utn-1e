@@ -2,6 +2,15 @@
 #define INFORM_H_INCLUDED
 
 #include "sale.h"
+#define WITH_POSTER 1
+#define WITHOUT_POSTER 2
+
+typedef struct
+{
+    Client client;
+    int salesQty;
+    int posterQty;
+}ClientMostSale;
 
 /** \brief
  *  Imprime la lista ingresada de Clientes en una tabla.
@@ -23,5 +32,8 @@ void inform_printPosterList(Poster* list, int len);
 
 void inform_printSaleList(Sale* saleList, int saleLen, Client* clientList,
     int clientLen, Poster* posterList, int posterLen);
+
+int inform_printBestClient(Sale* saleList, int saleLen,
+    Client* clientList, int clientLen, int field, int posterIndicator);
 
 #endif //INFORM_H_INCLUDED
